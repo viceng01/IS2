@@ -25,4 +25,11 @@ public class SellerInfo {
 	public String getEmail() {
 		return email;
 	}
+
+	@Override
+	public int hashCode() {
+		return sellerID.hashCode();
+	}
+	
+	
 }
