@@ -13,5 +13,19 @@ public class Model {
 		sellerSet = new HashSet<>();
 	}
 	
+	public boolean addSeller(Seller seller) {
+		if(seller == null) {
+			return false;
+		}
+		return sellerSet.add(seller);
+	}
+	
+	public boolean removeSeller(Seller seller) {
+		if(seller == null) {
+			return false;
+		}
+		
+		return sellerSet.remove(seller);
+	}
 	
 }
