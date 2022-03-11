@@ -9,8 +9,7 @@ public class Launcher {
 	public static void main(String[] args) {
 		Controller controller = new Controller();
 		
-		controller.addSeller(new Seller(new SellerInfo("Media Markt", GUID.generate(), "info@mediamarkt.es")));
-
+		controller.addSeller(new Seller(new SellerInfo("Media Markt", new GUID(), "info@mediamarkt.es")));
 
 	}
 
