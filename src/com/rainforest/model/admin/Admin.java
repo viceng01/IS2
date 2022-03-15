@@ -26,12 +26,12 @@ public class Admin {
 	}
 	
 	//leer datos, guardamos y damos o no damos altas 
-	public boolean esNombre(String nombre) {
+	private boolean esNombre(String nombre) {
 		return nombre.isEmpty();
 	}
 	
 	//Comprobamos que no este vacio el campo y aceptamos
-	public boolean esEmail(String email) {
+	private boolean esEmail(String email) {
 		return email.isEmpty();
 	}
 	
@@ -44,15 +44,9 @@ public class Admin {
 	
 	public void asignaIDVendedor(Seller vendedor) {
 		
-		if (this.esAlta(vendedor)) {
-			
 			//vendedor.asignaID(IDSeller);
 			IDSeller++;
-		}else {
-			System.out.println("ERROR datos erroneos");
-			//Volver a mostrar pantalla con los campos a rellenar
-			//vendedor.mostrarCamposAlta();
-		}
+		
 		
 	}
 	
