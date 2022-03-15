@@ -11,7 +11,6 @@ public class Model {
 	private Set<Seller> sellerSet;
 	private Set<Admin> adminSet;
 	
-	
 	public Model() {
 		sellerSet = new HashSet<>();
 		adminSet = new HashSet<>();
