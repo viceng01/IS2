@@ -1,5 +1,5 @@
 package com.rainforest.model.user;
 
-public class IUserPrivileges {
-
+public interface IUserPrivileges {
+	public boolean canViewRegistrationRequests();
 }
