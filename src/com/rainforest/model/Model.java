@@ -3,10 +3,10 @@ package com.rainforest.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.rainforest.model.admin.Admin;
-import com.rainforest.model.registration.RegistrationRequest;
-import com.rainforest.model.registration.SellerRegistrationRequest;
-import com.rainforest.model.seller.Seller;
+import com.rainforest.model.user.admin.Admin;
+import com.rainforest.model.user.registration.RegistrationRequest;
+import com.rainforest.model.user.registration.SellerRegistrationRequest;
+import com.rainforest.model.user.seller.Seller;
 
 /**
  * @author Alex

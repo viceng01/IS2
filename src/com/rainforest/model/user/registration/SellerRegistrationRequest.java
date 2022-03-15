@@ -1,7 +1,7 @@
-package com.rainforest.model.registration;
+package com.rainforest.model.user.registration;
 
 import com.rainforest.core.GUID;
-import com.rainforest.model.seller.SellerInfo;
+import com.rainforest.model.user.seller.SellerInfo;
 
 public class SellerRegistrationRequest extends RegistrationRequest {
 	private SellerInfo sellerInfo;

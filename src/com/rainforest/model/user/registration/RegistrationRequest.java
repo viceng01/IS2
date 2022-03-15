@@ -1,4 +1,4 @@
-package com.rainforest.model.registration;
+package com.rainforest.model.user.registration;
 
 public abstract class RegistrationRequest {
 	protected abstract String getEmail();

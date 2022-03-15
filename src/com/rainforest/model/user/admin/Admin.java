@@ -1,9 +1,8 @@
-package com.rainforest.model.admin;
+package com.rainforest.model.user.admin;
 
 import java.util.Set;
 
-import com.rainforest.model.seller.Seller;
-//import com.rainforest.model.buyer.Buyer;
+import com.rainforest.model.user.seller.Seller;
 
 public class Admin {
 

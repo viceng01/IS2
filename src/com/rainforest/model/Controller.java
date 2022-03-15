@@ -1,6 +1,6 @@
 package com.rainforest.model;
 
-import com.rainforest.model.seller.Seller;
+import com.rainforest.model.user.seller.Seller;
 
 public class Controller {
 	private Model model;

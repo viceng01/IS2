@@ -1,4 +1,4 @@
-package com.rainforest.model.seller;
+package com.rainforest.model.user.seller;
 
 public class Seller {
 
