@@ -16,4 +16,8 @@ public class Controller {
 	public boolean removeSeller(Seller seller) {
 		return model.removeSeller(seller);
 	}
+	
+	public boolean createSellerRegistrationRequest(String name, String email) {
+		return model.createSellerRegistrationRequest(name, email);
+	}
 }
