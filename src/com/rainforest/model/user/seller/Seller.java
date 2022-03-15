@@ -1,6 +1,8 @@
 package com.rainforest.model.user.seller;
 
-public class Seller {
+import com.rainforest.model.user.User;
+
+public class Seller extends User {
 
 	private SellerInfo info;
 

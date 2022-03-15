@@ -1,6 +1,6 @@
 package com.rainforest.model.user.registration;
 
-public abstract class RegistrationRequest {
+public abstract class UserRegistrationRequest {
 	protected abstract String getEmail();
 
 	@Override
@@ -8,7 +8,7 @@ public abstract class RegistrationRequest {
 		if (obj.getClass() != getClass())
 			return false;
 
-		RegistrationRequest rr = (RegistrationRequest) obj;
+		UserRegistrationRequest rr = (UserRegistrationRequest) obj;
 
 		if (rr == this)
 			return true;

@@ -3,7 +3,7 @@ package com.rainforest.model.user.registration;
 import com.rainforest.core.GUID;
 import com.rainforest.model.user.seller.SellerInfo;
 
-public class SellerRegistrationRequest extends RegistrationRequest {
+public class SellerRegistrationRequest extends UserRegistrationRequest {
 	private SellerInfo sellerInfo;
 
 	public SellerRegistrationRequest(String name, String email) {

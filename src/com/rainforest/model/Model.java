@@ -3,10 +3,8 @@ package com.rainforest.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.rainforest.model.user.admin.Admin;
-import com.rainforest.model.user.registration.RegistrationRequest;
-import com.rainforest.model.user.registration.SellerRegistrationRequest;
-import com.rainforest.model.user.seller.Seller;
+import com.rainforest.model.user.User;
+import com.rainforest.model.user.registration.UserRegistrationRequest;
 
 /**
  * @author Alex
@@ -14,99 +12,76 @@ import com.rainforest.model.user.seller.Seller;
  */
 public class Model {
 
-	private Set<Seller> sellerSet;
-	private Set<Admin> adminSet;
+	private Set<User> userSet;
 	
-	private Set<RegistrationRequest> registrationRequestSet;
+	private Set<UserRegistrationRequest> registrationRequestSet;
 	
 	public Model() {
-		sellerSet = new HashSet<>();
-		adminSet = new HashSet<>();
+		userSet = new HashSet<>();
 		
 		registrationRequestSet = new HashSet<>();
 	}
 	
 	
 	/**
-	 * Attempts to add a seller to the model. Returns true if the seller could be added correctly. Returns false if the seller was already in the model,
-	 * if the seller was null or any other case.
+	 * Attempts to add a user to the model. Returns true if the user could be added correctly. Returns false if the user was already in the model,
+	 * if the user was null or any other case.
 	 * 
-	 * @param seller : The seller to add
+	 * @param user : The user to add
 	 * @return
-	 * 	<b>true</b> if the seller was added, <b>false</b> otherwise
+	 * 	<b>true</b> if the user was added, <b>false</b> otherwise
 	 */
-	public boolean addSeller(Seller seller) {
-		if(seller == null) {
+	public boolean addUser(User user) {
+		if(user == null) {
 			return false;
 		}
-		return sellerSet.add(seller);
+		return userSet.add(user);
 	}
 	
 	
 	/**
-	 * Attempts to remove a seller from the model. Returns true if the seller was previously present in the model and could be removed correctly. Returns
-	 * false if the seller was not present in the model, if the seller to remove was null or any other case.
+	 * Attempts to remove a user from the model. Returns true if the user was previously present in the model and could be removed correctly. Returns
+	 * false if the user was not present in the model, if the user to remove was null or any other case.
 	 * 
-	 * @param seller : The seller to remove
+	 * @param user : The user to remove
 	 * @return
-	 * 	<b>true</b> if the seller was removed, <b>false</b> otherwise
+	 * 	<b>true</b> if the user was removed, <b>false</b> otherwise
 	 */
-	public boolean removeSeller(Seller seller) {
-		if(seller == null) {
+	public boolean removeUser(User user) {
+		if(user == null) {
 			return false;
 		}
-		return sellerSet.remove(seller);
+		return userSet.remove(user);
 	}
 	
-	public boolean addAdmin (Admin admin) {
-		if (admin == null) {
-			return false;
-		}
-		return adminSet.add(admin);
-	}
-	
-	public boolean removeAdmin (Admin admin) {
-		if (admin == null) {
-			return false;
-		}
-		return adminSet.remove(admin);
-	}
-	
-	public Set<RegistrationRequest> getRegistrationRequestsCopy() {
+	public Set<UserRegistrationRequest> getRegistrationRequestsCopy() {
 		return new HashSet<>(registrationRequestSet);
 	}
 
-
-	public boolean createSellerRegistrationRequest(String name, String email) {
-		SellerRegistrationRequest srr =  new SellerRegistrationRequest(name, email);
-
-		if(!isValidRegistrationRequest(srr))
+	public boolean addUserRegistrationRequest(UserRegistrationRequest urr) {
+		if(!isValidRegistrationRequest(urr))
 			return false;
 		
-		registrationRequestSet.add(new SellerRegistrationRequest(name, email));
-		
-		return true;
+		return registrationRequestSet.add(urr);
 	}
 	
-	private boolean isValidRegistrationRequest(RegistrationRequest rr) {
-		for (RegistrationRequest regReq : registrationRequestSet)
-			if(regReq.equals(rr))
-				return false;
+	private boolean isValidRegistrationRequest(UserRegistrationRequest rr) {
+		// TODO: Validate user registration
 		
 		return true;
 	}
 	
 	/*
 	public void consultaAltasPendientes(Admin admin) {
-		for (Seller seller: this.sellerSet) {
+		for (user user: this.userSet) {
 			if ()
 			
 		}
 	}
 	
-	public void darAltasPendientes(Seller seller, Admin admin) {
-		if (seller.getSellerInfo().getSellerID() == null) {
-			admin.asignaIDVendedor(seller);
+	public void darAltasPendientes(user user, Admin admin) {
+		if (user.getuserInfo().getuserID() == null) {
+			admin.asignaIDVendedor(user);
 		}
 		
 		
