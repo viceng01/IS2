@@ -8,6 +8,11 @@ public class Seller {
 		this.info = info;
 	}
 
+	public SellerInfo getSellerInfo() {
+		return this.info;
+	}
+	
+	
 	@Override
 	public int hashCode() {
 		return info.hashCode();
