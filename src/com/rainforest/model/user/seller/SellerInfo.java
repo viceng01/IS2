@@ -1,4 +1,4 @@
-package com.rainforest.model.seller;
+package com.rainforest.model.user.seller;
 
 import com.rainforest.core.GUID;
 

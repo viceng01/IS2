@@ -3,59 +3,85 @@ package com.rainforest.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.rainforest.model.admin.Admin;
-import com.rainforest.model.seller.Seller;
+import com.rainforest.model.user.User;
+import com.rainforest.model.user.registration.UserRegistrationRequest;
 
+/**
+ * @author Alex
+ *
+ */
 public class Model {
 
-	private Set<Seller> sellerSet;
-	private Set<Admin> adminSet;
+	private Set<User> userSet;
 	
+	private Set<UserRegistrationRequest> registrationRequestSet;
 	
 	public Model() {
-		sellerSet = new HashSet<>();
-		adminSet = new HashSet<>();
+		userSet = new HashSet<>();
+		
+		registrationRequestSet = new HashSet<>();
 	}
 	
-	public boolean addSeller(Seller seller) {
-		if(seller == null) {
+	
+	/**
+	 * Attempts to add a user to the model. Returns true if the user could be added correctly. Returns false if the user was already in the model,
+	 * if the user was null or any other case.
+	 * 
+	 * @param user : The user to add
+	 * @return
+	 * 	<b>true</b> if the user was added, <b>false</b> otherwise
+	 */
+	public boolean addUser(User user) {
+		if(user == null) {
 			return false;
 		}
-		return sellerSet.add(seller);
+		return userSet.add(user);
 	}
 	
-	public boolean removeSeller(Seller seller) {
-		if(seller == null) {
+	
+	/**
+	 * Attempts to remove a user from the model. Returns true if the user was previously present in the model and could be removed correctly. Returns
+	 * false if the user was not present in the model, if the user to remove was null or any other case.
+	 * 
+	 * @param user : The user to remove
+	 * @return
+	 * 	<b>true</b> if the user was removed, <b>false</b> otherwise
+	 */
+	public boolean removeUser(User user) {
+		if(user == null) {
 			return false;
 		}
-		return sellerSet.remove(seller);
+		return userSet.remove(user);
 	}
 	
-	public boolean addAdmin (Admin admin) {
-		if (admin == null) {
+	public Set<UserRegistrationRequest> getRegistrationRequestsCopy() {
+		return new HashSet<>(registrationRequestSet);
+	}
+
+	public boolean addUserRegistrationRequest(UserRegistrationRequest urr) {
+		if(!isValidRegistrationRequest(urr))
 			return false;
-		}
-		return adminSet.add(admin);
+		
+		return registrationRequestSet.add(urr);
 	}
 	
-	public boolean removeAdmin (Admin admin) {
-		if (admin == null) {
-			return false;
-		}
-		return adminSet.remove(admin);
+	private boolean isValidRegistrationRequest(UserRegistrationRequest rr) {
+		// TODO: Validate user registration
+		
+		return true;
 	}
 	
 	/*
 	public void consultaAltasPendientes(Admin admin) {
-		for (Seller seller: this.sellerSet) {
+		for (user user: this.userSet) {
 			if ()
 			
 		}
 	}
 	
-	public void darAltasPendientes(Seller seller, Admin admin) {
-		if (seller.getSellerInfo().getSellerID() == null) {
-			admin.asignaIDVendedor(seller);
+	public void darAltasPendientes(user user, Admin admin) {
+		if (user.getuserInfo().getuserID() == null) {
+			admin.asignaIDVendedor(user);
 		}
 		
 		
