@@ -1,13 +1,14 @@
-package com.rainforest.model;
+package com.rainforest.controller;
 
+import com.rainforest.model.RainforestModel;
 import com.rainforest.model.user.User;
 import com.rainforest.model.user.registration.UserRegistrationRequest;
 
 public class Controller {
-	private Model model;
+	private RainforestModel model;
 	
 	public Controller() {
-		model = new Model();
+		model = new RainforestModel();
 	}
 	
 	public boolean addUser(User user) {
