@@ -1,24 +1,25 @@
 package com.rainforest.model.user.seller;
 
 import com.rainforest.model.user.User;
+import com.rainforest.model.user.UserInfo;
 
 public class Seller extends User {
 
-	private SellerInfo info;
+	private SellerInfo sellerInfo;
 
-	public Seller(SellerInfo info) {
-		this.info = info;
+	public Seller(UserInfo userInfo, SellerInfo sellerInfo) {
+		super(userInfo);
+		
+		this.sellerInfo = sellerInfo;
 	}
 
 	public SellerInfo getSellerInfo() {
-		return this.info;
+		return this.sellerInfo;
 	}
-	
-	
+
 	@Override
 	public int hashCode() {
-		return info.hashCode();
+		return sellerInfo.hashCode();
 	}
-	
-	
+
 }

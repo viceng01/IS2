@@ -22,6 +22,22 @@ public class MainWindow extends JFrame {
 		dispose();
 		System.exit(0);
 	}
+	
+	public LoginResponse authenticate(String email, String password) {
+		return controller.tryLogin(email, password);
+	}
+	
+	public boolean doesUserExist(String email) {
+		return controller.doesUserExist(email);
+	}
+	
+	public void registerBuyer(String email, String password, String username) {
+		controller.registerBuyer(email, password, username);
+	}
+	
+	public void registerSeller(String email, String password, String username) {
+		controller.registerSeller(email, password, username);
+	}
 
 	private void doPreSetup() {
 		try {
@@ -44,11 +60,9 @@ public class MainWindow extends JFrame {
 		setContentPane(contentPane);
 
 		JMenuBar mainMenu = new MainMenu(this);
-
 		setJMenuBar(mainMenu);
 		
-		JDialog loginDialog = new LoginModalWindow();
-
+		JDialog loginDialog = new LoginModalWindow(this);
 		loginDialog.setVisible(true);
 	}
 
@@ -57,4 +71,5 @@ public class MainWindow extends JFrame {
 		doSetup();
 		doPostSetup();
 	}
+
 }
