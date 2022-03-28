@@ -23,8 +23,20 @@ public class MainWindow extends JFrame {
 		System.exit(0);
 	}
 	
-	public boolean tryLogin(String email, String password) {
+	public LoginResponse authenticate(String email, String password) {
 		return controller.tryLogin(email, password);
+	}
+	
+	public boolean doesUserExist(String email) {
+		return controller.doesUserExist(email);
+	}
+	
+	public void registerBuyer(String email, String password, String username) {
+		controller.registerBuyer(email, password, username);
+	}
+	
+	public void registerSeller(String email, String password, String username) {
+		controller.registerSeller(email, password, username);
 	}
 
 	private void doPreSetup() {
