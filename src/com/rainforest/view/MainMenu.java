@@ -3,17 +3,17 @@ package com.rainforest.view;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import com.rainforest.view.toolbar.file.FileMenu;
+import com.rainforest.view.toolbar.file.GeneralMenu;
 
 public class MainMenu extends JMenuBar {
 
-	public MainMenu()
+	public MainMenu(MainWindow mainWindow)
 	{
-		initGUI();
+		initGUI(mainWindow);
 	}
 
-	private void initGUI() {
-		JMenuItem fileMenu = new FileMenu();
+	private void initGUI(MainWindow mainWindow) {
+		JMenuItem fileMenu = new GeneralMenu(mainWindow);
 		
 		add(fileMenu);
 	}
