@@ -10,13 +10,13 @@ import com.rainforest.model.user.registration.UserRegistrationRequest;
  * @author Alex
  *
  */
-public class Model {
+public class RainforestModel {
 
 	private Set<User> userSet;
 	
 	private Set<UserRegistrationRequest> registrationRequestSet;
 	
-	public Model() {
+	public RainforestModel() {
 		userSet = new HashSet<>();
 		
 		registrationRequestSet = new HashSet<>();
