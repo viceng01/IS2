@@ -13,12 +13,10 @@ public class Seller extends User {
 	public SellerInfo getSellerInfo() {
 		return this.info;
 	}
-	
-	
+
 	@Override
 	public int hashCode() {
 		return info.hashCode();
 	}
-	
-	
+
 }

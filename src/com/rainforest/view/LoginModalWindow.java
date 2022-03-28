@@ -18,13 +18,16 @@ import javax.swing.border.TitledBorder;
 
 public class LoginModalWindow extends JDialog {
 
-	public LoginModalWindow() {
+	private JTextField emailTextField;
+	private JTextField passwordTextField;
+	
+	public LoginModalWindow(MainWindow mainWindow) {
 		super(null, "Login", ModalityType.DOCUMENT_MODAL);
 		
-		initGUI();
+		initGUI(mainWindow);
 	}
 
-	private void initGUI() {
+	private void initGUI(MainWindow mainWindow) {
 		JPanel contentPane = new JPanel();
 		setContentPane(contentPane);
 
@@ -33,7 +36,7 @@ public class LoginModalWindow extends JDialog {
 		JPanel formPanel = createFormPanel();
 		add(formPanel);
 
-		JPanel buttonPanel = createButtonPanel();
+		JPanel buttonPanel = createButtonPanel(mainWindow);
 		add(buttonPanel);
 
 		pack();
@@ -41,12 +44,16 @@ public class LoginModalWindow extends JDialog {
 		setVisible(false);
 	}
 
-	private JPanel createButtonPanel() {
+	private JPanel createButtonPanel(MainWindow mainWindow) {
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new FlowLayout());
 
 		JButton loginButton = new JButton("Login");
 		JButton registerButton = new JButton("Register");
+		
+		loginButton.addActionListener((ae) -> {
+			mainWindow.tryLogin(emailTextField.getText(), passwordTextField.getText());
+		});
 
 		buttonPanel.add(loginButton);
 		buttonPanel.add(registerButton);
@@ -74,8 +81,8 @@ public class LoginModalWindow extends JDialog {
 		JLabel emailLabel = new JLabel("Email");
 		JLabel passwordLabel = new JLabel("Password");
 
-		JTextField emailTextField = new JTextField(15);
-		JTextField passwordTextField = new JTextField(15);
+		emailTextField = new JTextField(15);
+		passwordTextField = new JTextField(15);
 
 		hGroup.addGroup(formLayout.createParallelGroup().addComponent(emailLabel).addComponent(passwordLabel));
 		hGroup.addGroup(formLayout.createParallelGroup().addComponent(emailTextField).addComponent(passwordTextField));

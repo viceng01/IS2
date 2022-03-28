@@ -22,4 +22,8 @@ public class Controller {
 	public boolean addUserRegistrationRequest(UserRegistrationRequest urr) {
 		return model.addUserRegistrationRequest(urr);
 	}
+
+	public boolean tryLogin(String email, String password) {
+		return model.tryLogin(email, password);
+	}
 }

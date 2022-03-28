@@ -2,6 +2,12 @@ package com.rainforest.model.user;
 
 public abstract class User implements IUserPrivileges {
 
+	private UserInfo userInfo;
+
+	public User(UserInfo userInfo) {
+		this.userInfo = userInfo;
+	}
+
 	@Override
 	public boolean canViewRegistrationRequests() {
 		return false;
@@ -16,5 +22,8 @@ public abstract class User implements IUserPrivileges {
 	public boolean canDeleteRegistrationRequests() {
 		return false;
 	}
-	
+
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
 }

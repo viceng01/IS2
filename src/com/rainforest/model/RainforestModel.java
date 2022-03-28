@@ -13,11 +13,13 @@ import com.rainforest.model.user.registration.UserRegistrationRequest;
 public class RainforestModel {
 
 	private Set<User> userSet;
+	private User currentUser;
 	
 	private Set<UserRegistrationRequest> registrationRequestSet;
 	
 	public RainforestModel() {
 		userSet = new HashSet<>();
+		currentUser = null;
 		
 		registrationRequestSet = new HashSet<>();
 	}
@@ -69,6 +71,13 @@ public class RainforestModel {
 		// TODO: Validate user registration
 		
 		return true;
+	}
+
+
+	public boolean tryLogin(String email, String password) {
+		for (User user : userSet) {
+			
+		}
 	}
 	
 	/*
