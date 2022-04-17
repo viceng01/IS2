@@ -16,6 +16,11 @@ public class Seller extends User {
 	public SellerInfo getSellerInfo() {
 		return this.sellerInfo;
 	}
+	
+	@Override
+	public boolean canSell() {
+		return true;
+	}
 
 	@Override
 	public int hashCode() {

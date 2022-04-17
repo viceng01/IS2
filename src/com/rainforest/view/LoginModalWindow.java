@@ -24,6 +24,8 @@ public class LoginModalWindow extends JDialog {
 
 	private static final String USER_TYPE_BUYER = "Buyer";
 	private static final String USER_TYPE_SELLER = "Seller";
+	private static final String USER_TYPE_ADMIN = "Admin";
+			
 
 	private JTextField emailTextField;
 	private JTextField passwordTextField;
@@ -56,15 +58,20 @@ public class LoginModalWindow extends JDialog {
 	private JPanel createButtonPanel(MainWindow mainWindow) {
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new FlowLayout());
-
+		
+		
 		JButton loginButton = new JButton("Login");
 		JButton registerButton = new JButton("Register");
 
 		loginButton.addActionListener((ae) -> {
-			LoginResponse response = mainWindow.authenticate(emailTextField.getText(), passwordTextField.getText());
+			LoginResponse response = mainWindow.authenticate(emailTextField.getText(), passwordTextField.getText(),userTypeComboBox.getSelectedItem().toString());
 
+			
+			//Si el usuario ha iniciado correctamente sesion se muestra la pantalla 
+			//correspondiente al usuario, pudiendo ser esta la del admin, buyer o seller
 			if (response == LoginResponse.OK) {
 				dispose();
+				showMessageDialog("Login successful");
 				return;
 			}
 
@@ -93,11 +100,12 @@ public class LoginModalWindow extends JDialog {
 
 			String password = passwordTextField.getText();
 			String username = usernameTextField.getText();
+			String type = userTypeComboBox.getSelectedItem().toString();
 
 			if (userTypeComboBox.getSelectedItem().equals(USER_TYPE_BUYER)) {
 				mainWindow.registerBuyer(email, password, username);
-				showMessageDialog("Login successful");
-				mainWindow.authenticate(email, password);
+				//showMessageDialog("Login successful");
+				mainWindow.authenticate(email, password,type);
 			} else {
 				mainWindow.registerSeller(email, password, username);
 
@@ -140,7 +148,7 @@ public class LoginModalWindow extends JDialog {
 		emailTextField = new JTextField(15);
 		passwordTextField = new JTextField(15);
 		usernameTextField = new JTextField(15);
-		userTypeComboBox = new JComboBox<String>(new String[] { USER_TYPE_BUYER, USER_TYPE_SELLER });
+		userTypeComboBox = new JComboBox<String>(new String[] { USER_TYPE_BUYER, USER_TYPE_SELLER, USER_TYPE_ADMIN });
 
 		hGroup.addGroup(formLayout.createParallelGroup().addComponent(emailLabel).addComponent(passwordLabel)
 				.addComponent(usernameLabel).addComponent(userTypeLabel));

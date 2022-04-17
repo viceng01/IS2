@@ -11,8 +11,10 @@ public class GUID {
 	
 	private UUID uuid;
 	
-	public GUID()
-	{
+	public GUID(){
+		//A-GUID
+		//B-GUID
+		//S-GUID
 		uuid = UUID.randomUUID();
 	}
 

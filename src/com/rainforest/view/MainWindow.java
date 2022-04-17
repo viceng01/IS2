@@ -23,8 +23,9 @@ public class MainWindow extends JFrame {
 		System.exit(0);
 	}
 	
-	public LoginResponse authenticate(String email, String password) {
-		return controller.tryLogin(email, password);
+	
+	public LoginResponse authenticate(String email, String password,String type) {
+		return controller.tryLogin(email, password,type);
 	}
 	
 	public boolean doesUserExist(String email) {

@@ -36,7 +36,7 @@ public class Controller {
 		return model.removeUser(user);
 	}
 
-	public LoginResponse tryLogin(String email, String password) {
-		return model.tryLogin(email, password);
+	public LoginResponse tryLogin(String email, String password,String type) {
+		return model.tryLogin(email, password,type);
 	}
 }

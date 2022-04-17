@@ -3,8 +3,10 @@ package com.rainforest.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.rainforest.core.GUID;
 import com.rainforest.model.user.User;
 import com.rainforest.model.user.UserInfo;
+import com.rainforest.model.user.admin.Admin;
 import com.rainforest.model.user.registration.SellerRegistrationRequest;
 import com.rainforest.model.user.registration.UserRegistrationRequest;
 import com.rainforest.view.LoginResponse;
@@ -22,8 +24,12 @@ public class RainforestModel {
 
 	public RainforestModel() {
 		userSet = new HashSet<>();
-		currentUser = null;
-
+		//public UserInfo(GUID userID, String email, String password, String username) {
+		UserInfo uInfo = new UserInfo(new GUID(), "d", "1", "dr");
+		
+		Admin u = new Admin(uInfo);
+		
+		userSet.add(u);
 		registrationRequestSet = new HashSet<>();
 	}
 
@@ -83,17 +89,33 @@ public class RainforestModel {
 		return true;
 	}
 
-	public LoginResponse tryLogin(String email, String password) {
+	public LoginResponse tryLogin(String email, String password, String type) {
 		for (User user : userSet) {
 			UserInfo userInfo = user.getUserInfo();
 
-			if (!userInfo.getEmail().equals(email))
-				return (userInfo.getPassword().equals(password)) ? LoginResponse.OK : LoginResponse.INCORRECT_PASSWORD;
+			if (userInfo.getEmail().equals(email)) {
+				//Si esta bien seleccionada la categoria con el tipo de usuario
+				//se comprueba el resto de datos y sino es que no esta el usuario
+				if (type.equals(tipoUsuario(user)))
+					return (userInfo.getPassword().equals(password)) ? LoginResponse.OK : LoginResponse.INCORRECT_PASSWORD;
+			}
 		}
 
 		return LoginResponse.UNKNOWN_USER;
 	}
 
+	public String tipoUsuario (User u) {
+		if (u.canBuy())
+			return "Buyer";
+		if (u.canSell())
+			return "Seller";
+		if (u.canDeleteRegistrationRequests())
+			return "Admin";
+		
+		return "";
+	}
+	
+	
 	public boolean doesUserExist(String email) {
 		for(User user : userSet)
 			if(user.getUserInfo().getEmail().equals(email))

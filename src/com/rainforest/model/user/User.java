@@ -7,6 +7,9 @@ public abstract class User implements IUserPrivileges {
 	public User(UserInfo userInfo) {
 		this.userInfo = userInfo;
 	}
+	public User() {
+		
+	}
 
 	@Override
 	public boolean canViewRegistrationRequests() {
@@ -22,7 +25,17 @@ public abstract class User implements IUserPrivileges {
 	public boolean canDeleteRegistrationRequests() {
 		return false;
 	}
+	
 
+	@Override
+	public boolean canSell() {
+		return false;
+	}
+	
+	@Override
+	public boolean canBuy() {
+		return false;
+	}
 	public UserInfo getUserInfo() {
 		return userInfo;
 	}
