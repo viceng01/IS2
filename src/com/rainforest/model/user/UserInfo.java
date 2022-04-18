@@ -8,6 +8,7 @@ public class UserInfo {
 	private String password;
 	private String username;
 	
+	
 	public UserInfo(GUID userID, String email, String password, String username) {
 		this.userID = userID;
 		this.email = email;
@@ -15,6 +16,14 @@ public class UserInfo {
 		this.username = username;
 	}
 	
+	public UserInfo(UserInfo u) {
+		this.userID = u.userID;
+		this.email = u.email;
+		this.password = u.password;
+		this.username = u.username;
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getEmail() {
 		return email;
 	}

@@ -9,6 +9,7 @@ import com.rainforest.model.user.UserInfo;
 import com.rainforest.model.user.admin.Admin;
 import com.rainforest.model.user.registration.SellerRegistrationRequest;
 import com.rainforest.model.user.registration.UserRegistrationRequest;
+import com.rainforest.model.user.seller.Seller;
 import com.rainforest.view.LoginResponse;
 
 /**
@@ -25,11 +26,11 @@ public class RainforestModel {
 	public RainforestModel() {
 		userSet = new HashSet<>();
 		//public UserInfo(GUID userID, String email, String password, String username) {
-		UserInfo uInfo = new UserInfo(new GUID(), "d", "1", "dr");
+		//UserInfo uInfo = new UserInfo(new GUID(), "d", "1", "dr");
 		
-		Admin u = new Admin(uInfo);
+		//Seller u = new Seller(uInfo);
 		
-		userSet.add(u);
+		//userSet.add(u);
 		registrationRequestSet = new HashSet<>();
 	}
 
@@ -109,8 +110,6 @@ public class RainforestModel {
 			return "Buyer";
 		if (u.canSell())
 			return "Seller";
-		if (u.canDeleteRegistrationRequests())
-			return "Admin";
 		
 		return "";
 	}

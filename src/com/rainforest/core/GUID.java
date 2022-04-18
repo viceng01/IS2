@@ -12,10 +12,12 @@ public class GUID {
 	private UUID uuid;
 	
 	public GUID(){
-		//A-GUID
-		//B-GUID
-		//S-GUID
 		uuid = UUID.randomUUID();
+	}
+
+	public GUID(String g) {
+		
+		uuid = UUID.fromString(g);
 	}
 
 	@Override
