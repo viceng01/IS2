@@ -10,17 +10,15 @@ public class Admin extends User {
 	}
 
 	@Override
-	public boolean canViewRegistrationRequests() {
-		return true;
+	public boolean canSell() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
-	public boolean canProcessRegistrationRequests() {
-		return true;
+	public boolean canBuy() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	@Override
-	public boolean canDeleteRegistrationRequests() {
-		return true;
-	}
 }

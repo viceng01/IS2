@@ -11,9 +11,13 @@ public class GUID {
 	
 	private UUID uuid;
 	
-	public GUID()
-	{
+	public GUID(){
 		uuid = UUID.randomUUID();
+	}
+
+	public GUID(String g) {
+		
+		uuid = UUID.fromString(g);
 	}
 
 	@Override

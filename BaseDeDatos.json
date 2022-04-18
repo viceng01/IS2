@@ -1,0 +1,22 @@
+{
+  "usuarios": [
+	 {
+	  "type" : "seller",
+	  "data" : {
+		"GUID" : "",
+	  	"email": "d@ucm.es",
+		"password": "1234",
+		"username": "d"
+	  }
+	 },
+	 {
+	  "type" : "buyer",
+	  "data" : {
+		"GUID" : "",
+	  	"email": "v@ucm.es",
+		"password": "1234",
+		"username": "v"
+	  }
+	 }
+  ]
+}
