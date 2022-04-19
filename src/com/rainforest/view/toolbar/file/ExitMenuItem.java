@@ -1,7 +1,5 @@
 package com.rainforest.view.toolbar.file;
 
-import java.awt.event.WindowListener;
-
 import javax.swing.JMenuItem;
 
 import com.rainforest.view.MainWindow;

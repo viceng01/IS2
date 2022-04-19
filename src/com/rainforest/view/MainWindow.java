@@ -1,5 +1,6 @@
 package com.rainforest.view;
 
+import java.awt.BorderLayout;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -9,7 +10,7 @@ import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
-import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -34,10 +35,10 @@ public class MainWindow extends JFrame {
 		InputStream in = null;
 		try {
 			in = new FileInputStream(_inFile);
+			controller.loadDataBase(in);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		controller.loadDataBase(in);
 		
 		//Abrir y leer de bloc de notas los usuarios que ya estan logueados
 		initGUI();
@@ -92,8 +93,7 @@ public class MainWindow extends JFrame {
 	}
 
 	private void doSetup() {
-		JPanel contentPane = new JPanel();
-		setContentPane(contentPane);
+		add(new JScrollPane(new ProductsList()), BorderLayout.CENTER);
 
 		JMenuBar mainMenu = new MainMenu(this);
 		setJMenuBar(mainMenu);
