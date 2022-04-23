@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -20,7 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-public class LoginModalWindow extends JPanel {
+public class ControlPanel extends JPanel {
 
 	private static final String USER_TYPE_BUYER = "Buyer";
 	private static final String USER_TYPE_SELLER = "Seller";
@@ -32,22 +33,32 @@ public class LoginModalWindow extends JPanel {
 	private JComboBox<String> userTypeComboBox;
 	private ProductsList productList;
 	private ProductsListSeller pls;
+	private RegisterModalWindowB rmwb;
+	private RegisterModalWindowS rmws;
 	private MainWindow mw;
+	
 
-	public LoginModalWindow(MainWindow mainWindow) {
+	public ControlPanel(MainWindow mainWindow) {
 		mw = mainWindow;
 		initGUI(mainWindow);
-
+		
+		/*TODO*/
+		//HABRIA QUE DEJA SOLO UN PRODUCT LIST Y QUE LLAME A LA INTERFAZ CORRESPONDIENTE
 		productList = new ProductsList(mw,this);
 		pls = new ProductsListSeller(mw,this);
+		rmwb = new RegisterModalWindowB(mw,this);
+		rmws = new RegisterModalWindowS(mw,this);
 	}
 	
 	private void initGUI(MainWindow mainWindow) {
-		JPanel contentPane = new JPanel();
+		//JPanel contentPane = new JPanel();
 		//setContentPane(contentPane);
 
-		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
+		//contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
+		//lmw = new LoginModalWindow(mw);
+		
+		
 		JPanel formPanel = createFormPanel();
 		add(formPanel);
 		
@@ -56,10 +67,7 @@ public class LoginModalWindow extends JPanel {
 		add(buttonPanel);
 		
 		
-
-		//pack();
-		//setLocationRelativeTo(null);
-		setVisible(false);
+		setVisible(true);
 	}
 
 	private JPanel createButtonPanel(MainWindow mainWindow) {
@@ -144,16 +152,35 @@ public class LoginModalWindow extends JPanel {
 			String username = usernameTextField.getText();
 			String type = userTypeComboBox.getSelectedItem().toString();
 
+			//Aqui sabemos el timpo de usuario que es
 			if (userTypeComboBox.getSelectedItem().equals(USER_TYPE_BUYER)) {
+				int option = rmwb.open();
+				if (option == 1) {
+					setVisible(false);
+				}else {
+					setVisible(true);
+					this.mw.setVisible(true);
+				}
 				mainWindow.registerBuyer(email, password, username);
-				//showMessageDialog("Login successful");
 				mainWindow.authenticate(email, password,type);
 			} else {
+				int option = rmwb.open();
+				if (option == 1) {
+					setVisible(false);
+				}else {
+					setVisible(true);
+					this.mw.setVisible(true);
+				}
 				mainWindow.registerSeller(email, password, username);
-
-				showMessageDialog("Your registration request has been sent and will be processed by an administrator");
+				mainWindow.authenticate(email, password,type);
+				//showMessageDialog("Your registration request has been sent and will be processed by an administrator");
 			}
-
+			
+			this.mw.setVisible(false);
+			emailTextField.setText(null);
+			passwordTextField.setText(null);
+			usernameTextField.setText(null);
+			userTypeComboBox.setSelectedIndex(0);
 			//dispose();
 		});
 
@@ -222,4 +249,6 @@ public class LoginModalWindow extends JPanel {
 		JOptionPane.showConfirmDialog(null, message, "Seller registration", JOptionPane.DEFAULT_OPTION,
 				JOptionPane.INFORMATION_MESSAGE);
 	}
+	
+	
 }

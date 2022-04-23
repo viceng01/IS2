@@ -50,7 +50,7 @@ public class RainforestModel {
 	}
 	
 	public void registerBuyer(String email, String password, String username) {
-		// TODO: Create and add buyer
+		
 	}
 	
 	public void registerSeller(String email, String password, String username) {

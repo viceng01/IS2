@@ -33,7 +33,7 @@ public class BuyerBuilder extends Builder<User>{
 		UserInfo u = new UserInfo (g,email,password,username);
 		/*TODO*/
 		//De momento no nos hace falta !!!
-		BuyerInfo b = new BuyerInfo("Calle nepe", metodoPago.TARJETA,"123456");
+		BuyerInfo b = new BuyerInfo("Calle nepe","123456",12345);
 		
 		return new Buyer (u,b);
 	}
