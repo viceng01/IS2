@@ -25,21 +25,20 @@ import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
 
-public class ProductsList extends JDialog implements ActionListener{
+public class ProductsListSeller extends JDialog implements ActionListener{
 
 	protected int _status;
 	private JButton addButton;
 	private JButton removeButton;
 
 	private JButton sigOut;
-	private JButton cestaC;
 
 	private JPanel botonesArriba;
 	
 	private MainWindow mw;
 	private LoginModalWindow lmw;
 	
-	public ProductsList(MainWindow mw, LoginModalWindow lmw) {
+	public ProductsListSeller(MainWindow mw, LoginModalWindow lmw) {
 		this.mw = mw;
 		this.lmw = lmw;
 		initGUI();
@@ -60,8 +59,6 @@ public class ProductsList extends JDialog implements ActionListener{
 		
 		botonesArriba = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		botonesArriba.add(direccion);
-		this.add(Box.createRigidArea(new Dimension(10, 0)));
-		cesta();
 		this.add(Box.createRigidArea(new Dimension(10, 0)));
 		sigOut();
 		
@@ -206,23 +203,6 @@ public class ProductsList extends JDialog implements ActionListener{
 		this.botonesArriba.add(sigOut);
 	}
 	
-	public void cesta(){
-		//creamos el nuevo boton con la imagen proporcionada
-				cestaC = new JButton(new ImageIcon("resources/1.jpg"));
-				
-				cestaC.addActionListener(new ActionListener() {
-					
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						setVisible(false);
-						
-					}
-				});
-				cestaC.setToolTipText("Cesta compra");
-				this.botonesArriba.add(cestaC);
-		
-	}
-	
 	 private void quit() {
 	    	int option = JOptionPane.showOptionDialog(this, "Are you sure you want to sign out?", "Sign Out", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, 1); // el 1 es para q x defecto la opcion senalada sea NO
 	        if (option == 0) {
@@ -232,4 +212,5 @@ public class ProductsList extends JDialog implements ActionListener{
 				lmw.setVisible(true);
 	        }
 		}
+	
 }
