@@ -1,13 +1,12 @@
 package com.rainforest.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout.SequentialGroup;
@@ -17,41 +16,49 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-public class LoginModalWindow extends JDialog {
+public class LoginModalWindow extends JPanel {
 
 	private static final String USER_TYPE_BUYER = "Buyer";
 	private static final String USER_TYPE_SELLER = "Seller";
-	private static final String USER_TYPE_ADMIN = "Admin";
 			
 
 	private JTextField emailTextField;
 	private JTextField passwordTextField;
 	private JTextField usernameTextField;
 	private JComboBox<String> userTypeComboBox;
+	private ProductsList productList;
+	private ProductsListSeller pls;
+	private MainWindow mw;
 
 	public LoginModalWindow(MainWindow mainWindow) {
-		super(null, "Login", ModalityType.DOCUMENT_MODAL);
-
+		mw = mainWindow;
 		initGUI(mainWindow);
-	}
 
+		productList = new ProductsList(mw,this);
+		pls = new ProductsListSeller(mw,this);
+	}
+	
 	private void initGUI(MainWindow mainWindow) {
 		JPanel contentPane = new JPanel();
-		setContentPane(contentPane);
+		//setContentPane(contentPane);
 
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
 		JPanel formPanel = createFormPanel();
 		add(formPanel);
+		
 
 		JPanel buttonPanel = createButtonPanel(mainWindow);
 		add(buttonPanel);
+		
+		
 
-		pack();
-		setLocationRelativeTo(null);
+		//pack();
+		//setLocationRelativeTo(null);
 		setVisible(false);
 	}
 
@@ -62,18 +69,50 @@ public class LoginModalWindow extends JDialog {
 		
 		JButton loginButton = new JButton("Login");
 		JButton registerButton = new JButton("Register");
+		
+		
 
 		loginButton.addActionListener((ae) -> {
 			LoginResponse response = mainWindow.authenticate(emailTextField.getText(), passwordTextField.getText(),userTypeComboBox.getSelectedItem().toString());
 
-			
 			//Si el usuario ha iniciado correctamente sesion se muestra la pantalla 
 			//correspondiente al usuario, pudiendo ser esta la del admin, buyer o seller
 			if (response == LoginResponse.OK) {
-				dispose();
 				showMessageDialog("Login successful");
+				//Una vez tenemos el usuario, habria que buscar el que tenga ese email para poder ver los prodcutos que
+				//ofrece ese vendedor, en caso de que el usuario sea un vendedor claro
+				
+				if (userTypeComboBox.getSelectedItem().toString().equals("Seller")){
+					int sol = pls.open();
+					if (sol == 1) {
+						setVisible(false);
+					}else {
+		
+						setVisible(true);
+						this.mw.setVisible(true);
+					}
+					
+				}else {
+					int sol = productList.open();
+					if (sol == 1) {
+						setVisible(false);
+					}else {
+		
+						setVisible(true);
+						this.mw.setVisible(true);
+					}
+				}
+				
+				this.mw.setVisible(false);
+				emailTextField.setText(null);
+				passwordTextField.setText(null);
+				usernameTextField.setText(null);
+				userTypeComboBox.setSelectedIndex(0);
 				return;
 			}
+			
+			
+				
 
 			String message;
 
@@ -83,6 +122,9 @@ public class LoginModalWindow extends JDialog {
 				break;
 			case INCORRECT_PASSWORD:
 				message = "Incorrect email or password";
+				break;
+			case OK:
+				message = "Todo fue bien:)";
 				break;
 			default:
 				message = "Unexpected error";
@@ -112,11 +154,12 @@ public class LoginModalWindow extends JDialog {
 				showMessageDialog("Your registration request has been sent and will be processed by an administrator");
 			}
 
-			dispose();
+			//dispose();
 		});
 
 		buttonPanel.add(loginButton);
 		buttonPanel.add(registerButton);
+		
 
 		return buttonPanel;
 	}
@@ -148,7 +191,7 @@ public class LoginModalWindow extends JDialog {
 		emailTextField = new JTextField(15);
 		passwordTextField = new JTextField(15);
 		usernameTextField = new JTextField(15);
-		userTypeComboBox = new JComboBox<String>(new String[] { USER_TYPE_BUYER, USER_TYPE_SELLER, USER_TYPE_ADMIN });
+		userTypeComboBox = new JComboBox<String>(new String[] { USER_TYPE_BUYER, USER_TYPE_SELLER});
 
 		hGroup.addGroup(formLayout.createParallelGroup().addComponent(emailLabel).addComponent(passwordLabel)
 				.addComponent(usernameLabel).addComponent(userTypeLabel));
