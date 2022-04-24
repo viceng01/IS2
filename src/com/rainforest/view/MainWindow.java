@@ -129,18 +129,18 @@ public class MainWindow extends JFrame {
 		
 		//Utilizamos un GridLayout para que se separe el JPanel central en 2 
 		//Teniendo a la izquierda usuario y contraseña y a la derecha los botones de login y de registro
-		JPanel viewsPanel = new JPanel(new GridLayout(1, 1));
-		mainPanel.add(viewsPanel, BorderLayout.CENTER);
 		
-		JPanel tablesPanel = new JPanel();
-		tablesPanel.setLayout(new BoxLayout(tablesPanel, BoxLayout.Y_AXIS));
-		viewsPanel.add(tablesPanel);
+		//mainPanel.add(viewsPanel, BorderLayout.CENTER);
 		
+		JPanel cp = new ControlPanel(this);
+		mainPanel.add(cp, BorderLayout.CENTER);
+		
+		/*
 		JPanel loginDialog = new LoginModalWindow(this);
 		loginDialog.setVisible(true);
 		
 		mainPanel.add(loginDialog);
-		
+		*/
 		
 	}
 

@@ -11,19 +11,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.ImageIcon;
-import javax.swing.border.TitledBorder;
 
 public class ProductsList extends JDialog implements ActionListener{
 
@@ -37,11 +32,11 @@ public class ProductsList extends JDialog implements ActionListener{
 	private JPanel botonesArriba;
 	
 	private MainWindow mw;
-	private LoginModalWindow lmw;
+	private ControlPanel cp;
 	
-	public ProductsList(MainWindow mw, LoginModalWindow lmw) {
+	public ProductsList(MainWindow mw, ControlPanel cp) {
 		this.mw = mw;
-		this.lmw = lmw;
+		this.cp = cp;
 		initGUI();
 	}
 
@@ -229,7 +224,9 @@ public class ProductsList extends JDialog implements ActionListener{
 	        	setVisible(false);
 
 				mw.setVisible(true);
-				lmw.setVisible(true);
+				cp.setVisible(true);
+	        }else {
+	        	setVisible(true);
 	        }
 		}
 }

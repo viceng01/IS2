@@ -28,6 +28,7 @@ import javax.swing.border.TitledBorder;
 public class ProductsListSeller extends JDialog implements ActionListener{
 
 	protected int _status;
+	private int option;
 	private JButton addButton;
 	private JButton removeButton;
 
@@ -36,11 +37,11 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 	private JPanel botonesArriba;
 	
 	private MainWindow mw;
-	private LoginModalWindow lmw;
+	private ControlPanel cp;
 	
-	public ProductsListSeller(MainWindow mw, LoginModalWindow lmw) {
+	public ProductsListSeller(MainWindow mw, ControlPanel cp) {
 		this.mw = mw;
-		this.lmw = lmw;
+		this.cp = cp;
 		initGUI();
 	}
 
@@ -105,6 +106,7 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 
 			@Override
 			public void windowClosed(WindowEvent e) {
+				
 				// TODO Auto-generated method stub
 				
 			}
@@ -204,12 +206,14 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 	}
 	
 	 private void quit() {
-	    	int option = JOptionPane.showOptionDialog(this, "Are you sure you want to sign out?", "Sign Out", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, 1); // el 1 es para q x defecto la opcion senalada sea NO
+	    	option = JOptionPane.showOptionDialog(this, "Are you sure you want to sign out?", "Sign Out", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, 1); // el 1 es para q x defecto la opcion senalada sea NO
 	        if (option == 0) {
 	        	setVisible(false);
 
 				mw.setVisible(true);
-				lmw.setVisible(true);
+				cp.setVisible(true);
+	        }else {
+	        	setVisible(true);
 	        }
 		}
 	
