@@ -21,6 +21,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import com.rainforest.controller.Controller;
+
 public class ControlPanel extends JPanel {
 
 	private static final String USER_TYPE_BUYER = "Buyer";
@@ -36,9 +38,11 @@ public class ControlPanel extends JPanel {
 	private RegisterModalWindowB rmwb;
 	private RegisterModalWindowS rmws;
 	private MainWindow mw;
+	private Controller ctrl;
 	
 
-	public ControlPanel(MainWindow mainWindow) {
+	public ControlPanel(MainWindow mainWindow, Controller ctrl) {
+		this.ctrl= ctrl; 
 		mw = mainWindow;
 		initGUI(mainWindow);
 		
@@ -54,7 +58,6 @@ public class ControlPanel extends JPanel {
 		//JPanel contentPane = new JPanel();
 		//setContentPane(contentPane);
 
-		//contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
 		//lmw = new LoginModalWindow(mw);
 		
@@ -67,6 +70,7 @@ public class ControlPanel extends JPanel {
 		add(buttonPanel);
 		
 		
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setVisible(true);
 	}
 
@@ -143,44 +147,64 @@ public class ControlPanel extends JPanel {
 		registerButton.addActionListener((ae) -> {
 			String email = emailTextField.getText();
 
-			if (mainWindow.doesUserExist(email)) {
-				showErrorDialog("Email already in use");
+			String password = passwordTextField.getText();
+			String username = usernameTextField.getText();
+			LoginResponse r = mainWindow.doesUserExist(email,password,username);
+			if (r != LoginResponse.OK) {
+				String message;
+
+				switch (r) {
+				case EMPTY_DATA:
+					message = "Some fields empty";
+					break;
+				case ALREADY_USED:
+					message = "Dataa already used";
+					break;
+				default:
+					message = "Unexpected error";
+				}
+				showErrorDialog(message);
 				return;
 			}
 
-			String password = passwordTextField.getText();
-			String username = usernameTextField.getText();
 			String type = userTypeComboBox.getSelectedItem().toString();
 
+			//LoginResponse response = mainWindow.authenticateR(email, username);
+
 			//Aqui sabemos el timpo de usuario que es
-			if (userTypeComboBox.getSelectedItem().equals(USER_TYPE_BUYER)) {
-				int option = rmwb.open();
-				if (option == 1) {
-					setVisible(false);
-				}else {
-					setVisible(true);
-					this.mw.setVisible(true);
-				}
-				mainWindow.registerBuyer(email, password, username);
-				mainWindow.authenticate(email, password,type);
-			} else {
-				int option = rmwb.open();
-				if (option == 1) {
-					setVisible(false);
-				}else {
-					setVisible(true);
-					this.mw.setVisible(true);
-				}
-				mainWindow.registerSeller(email, password, username);
-				mainWindow.authenticate(email, password,type);
-				//showMessageDialog("Your registration request has been sent and will be processed by an administrator");
-			}
 			
-			this.mw.setVisible(false);
-			emailTextField.setText(null);
-			passwordTextField.setText(null);
-			usernameTextField.setText(null);
-			userTypeComboBox.setSelectedIndex(0);
+				if (userTypeComboBox.getSelectedItem().equals(USER_TYPE_BUYER)) {
+					int option = rmwb.open();
+					if (option == 1) {
+						setVisible(false);
+					}else {
+						setVisible(true);
+						this.mw.setVisible(true);
+					}
+					if (rmwb.getTel() != 0) {
+						ctrl.addBuyer(email,password,username,rmwb.getDir(),rmwb.getDNI(),rmwb.getTel());
+					}
+					//mainWindow.registerBuyer(email, password, username);
+				} else {
+					int option = rmwb.open();
+					if (option == 1) {
+						setVisible(false);
+					}else {
+						setVisible(true);
+						this.mw.setVisible(true);
+					}
+					//mainWindow.registerSeller(email, password, username);
+					//showMessageDialog("Your registration request has been sent and will be processed by an administrator");
+					
+				}
+				this.mw.setVisible(false);
+				emailTextField.setText(null);
+				passwordTextField.setText(null);
+				usernameTextField.setText(null);
+				userTypeComboBox.setSelectedIndex(0);
+				return;
+			
+			
 			//dispose();
 		});
 

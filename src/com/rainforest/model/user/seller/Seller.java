@@ -40,5 +40,13 @@ public class Seller extends User {
 
 
 
+	@Override
+	public String getBuyerInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
 	
 }

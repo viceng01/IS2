@@ -16,10 +16,6 @@ public class Buyer extends User {
 	}
 
 	
-
-	public BuyerInfo getBuyerInfo() {
-		return this.buyerInfo;
-	}
 	
 	@Override
 	public boolean canBuy() {
@@ -30,6 +26,13 @@ public class Buyer extends User {
 	public boolean canSell() {
 		return false;
 	}
+	
+	public String getBuyerInfo() {
+		String salida;
+		salida = this.buyerInfo.getDNI() + " " + Integer.toString(this.buyerInfo.getTel());
+		return salida;
+	}
+	
 
 	@Override
 	public int hashCode() {

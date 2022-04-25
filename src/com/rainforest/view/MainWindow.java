@@ -76,8 +76,8 @@ public class MainWindow extends JFrame {
 		return controller.tryLogin(email, password,type);
 	}
 	
-	public boolean doesUserExist(String email) {
-		return controller.doesUserExist(email);
+	public LoginResponse doesUserExist(String email, String password,String user) {
+		return controller.doesUserExist(email,password,user);
 	}
 	
 	public void registerBuyer(String email, String password, String username) {
@@ -86,6 +86,10 @@ public class MainWindow extends JFrame {
 	
 	public void registerSeller(String email, String password, String username) {
 		controller.registerSeller(email, password, username);
+	}
+	
+	public boolean doesRegisterBuyerExist(String dni,int tel) {
+		return controller.doesRegisterBuyerExist(dni,tel);
 	}
 
 	private void doPreSetup() {
@@ -132,7 +136,7 @@ public class MainWindow extends JFrame {
 		
 		//mainPanel.add(viewsPanel, BorderLayout.CENTER);
 		
-		JPanel cp = new ControlPanel(this);
+		JPanel cp = new ControlPanel(this,controller);
 		mainPanel.add(cp, BorderLayout.CENTER);
 		
 		/*

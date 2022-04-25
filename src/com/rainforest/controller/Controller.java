@@ -43,8 +43,8 @@ public class Controller {
 		return model.addUserRegistrationRequest(urr);
 	}
 
-	public boolean doesUserExist(String email) {
-		return model.doesUserExist(email);
+	public LoginResponse doesUserExist(String email, String password,String user) {
+		return model.doesUserExist(email,password,user);
 	}
 	
 	public void registerBuyer(String email, String password, String username) {
@@ -55,6 +55,10 @@ public class Controller {
 		model.registerSeller(email, password, username);
 	}
 	
+	public boolean doesRegisterBuyerExist(String dni, int tel) {
+		return model.doesRegisterBuyerExist(dni,tel);
+	}
+	
 	public boolean removeUser(User user) {
 		return model.removeUser(user);
 	}
@@ -62,6 +66,8 @@ public class Controller {
 	public LoginResponse tryLogin(String email, String password,String type) {
 		return model.tryLogin(email, password,type);
 	}
+	
+
 	
 	public void loadDataBase(InputStream in) {
 		
@@ -77,4 +83,11 @@ public class Controller {
         }
         
 	}
+
+	
+	public void addBuyer(String email, String password, String user,String dir, String dni,int tel) {
+		model.addBuyer(email,password,user,dir,dni,tel);
+	}
+
+	
 }
