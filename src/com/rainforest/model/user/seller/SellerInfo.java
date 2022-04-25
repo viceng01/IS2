@@ -1,20 +1,26 @@
 package com.rainforest.model.user.seller;
 
-import com.rainforest.core.GUID;
+import java.util.Collection;
+
+import com.rainforest.model.product.Catalogue;
+import com.rainforest.model.product.Product;
+import com.rainforest.model.product.ProductCollection;
 
 public class SellerInfo {
 
-	private String producto;
-	private int precio;
-	private int cantidad;
+	private Catalogue catalogue;
 
-	public SellerInfo(String producto, int precio, int cantidad) {
-		this.producto = producto;
-		this.precio = precio;
-		this.cantidad= cantidad;
+	public SellerInfo() {
+		catalogue = new Catalogue();
 	}
-
 	
-	
-	
+	public void addProductToCatalogue(Product p) {
+		catalogue.addProduct(p, 1);
+	}
+	public void removeProductFromCatalogue(Product p) {
+		catalogue.removeProductCollection(p);
+	}
+	public Collection<ProductCollection> getAllProductCollections() {
+		return catalogue.getAllProductCollections();
+	}
 }

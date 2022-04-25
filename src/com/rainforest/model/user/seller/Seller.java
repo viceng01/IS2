@@ -1,6 +1,5 @@
 package com.rainforest.model.user.seller;
 
-import com.rainforest.core.GUID;
 import com.rainforest.model.user.User;
 import com.rainforest.model.user.UserInfo;
 

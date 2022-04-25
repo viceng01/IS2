@@ -3,12 +3,13 @@ package com.rainforest.view;
 import java.awt.BorderLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
-public class ProductSlotRenderer extends JPanel {
-	public ProductSlotRenderer() {
+public class ProductButton extends JButton {
+	public ProductButton() {
 		initGUI();
 	}
 

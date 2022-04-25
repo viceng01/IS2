@@ -5,8 +5,6 @@ import org.json.JSONObject;
 import com.rainforest.core.GUID;
 import com.rainforest.model.user.User;
 import com.rainforest.model.user.UserInfo;
-import com.rainforest.model.user.buyer.Buyer;
-import com.rainforest.model.user.buyer.BuyerInfo;
 import com.rainforest.model.user.seller.Seller;
 import com.rainforest.model.user.seller.SellerInfo;
 
@@ -34,7 +32,7 @@ public class SellerBuilder extends Builder<User>{
 		UserInfo u = new UserInfo (g,email,password,username);
 		/*TODO*/
 		//De momento no nos hace falta !!!
-		SellerInfo b = new SellerInfo("pollas",100, 1000);
+		SellerInfo b = new SellerInfo();
 		
 		return new Seller (u,b);
 	}

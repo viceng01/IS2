@@ -1,31 +1,34 @@
 package com.rainforest.model.product;
 
+import com.rainforest.core.GUID;
 
-public abstract class Product  {
+public abstract class Product {
 
+	private GUID guid;
 	private String name;
-	private String price;
 	private String description;
+	private float price;
 
-	public Product(String name, String price,String description) {
+	public Product(GUID guid, String name, String description, float price) {
+		this.guid = guid;
 		this.name = name;
-		this.price = price;
 		this.description = description;
+		this.price = price;
 	}
-
+	
+	public GUID getGUID() {
+		return guid;
+	}
 
 	public String getName() {
 		return name;
 	}
 
-	public String getPrice() {
-		return price;
-	}
-
 	public String getDescription() {
 		return description;
 	}
-	
-	
-	
+
+	public float getPrice() {
+		return price;
+	}
 }

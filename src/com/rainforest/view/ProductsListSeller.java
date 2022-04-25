@@ -84,7 +84,7 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 		
 		
 		for(int i = 0; i < 30; ++i) {
-			tablaMedio.add(new ProductSlotRenderer());
+			tablaMedio.add(new ProductButton());
 		}
 		
 
