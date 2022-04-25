@@ -21,4 +21,10 @@ public class Admin extends User {
 		return false;
 	}
 
+	@Override
+	public String getBuyerInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

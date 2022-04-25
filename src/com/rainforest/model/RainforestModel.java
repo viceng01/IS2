@@ -7,6 +7,8 @@ import com.rainforest.core.GUID;
 import com.rainforest.model.user.User;
 import com.rainforest.model.user.UserInfo;
 import com.rainforest.model.user.admin.Admin;
+import com.rainforest.model.user.buyer.Buyer;
+import com.rainforest.model.user.buyer.BuyerInfo;
 import com.rainforest.model.user.registration.SellerRegistrationRequest;
 import com.rainforest.model.user.registration.UserRegistrationRequest;
 import com.rainforest.model.user.seller.Seller;
@@ -104,6 +106,8 @@ public class RainforestModel {
 
 		return LoginResponse.UNKNOWN_USER;
 	}
+	
+	
 
 	public String tipoUsuario (User u) {
 		if (u.canBuy())
@@ -115,13 +119,41 @@ public class RainforestModel {
 	}
 	
 	
-	public boolean doesUserExist(String email) {
+	public LoginResponse doesUserExist(String email, String pasw, String u) {
+		if (email.equals("") || pasw.equals("") || u.equals(""))
+			return LoginResponse.EMPTY_DATA;
 		for(User user : userSet)
-			if(user.getUserInfo().getEmail().equals(email))
-					return true;
+			if(user.getUserInfo().getEmail().equals(email) || user.getUserInfo().getUsername().equals(u))
+					return LoginResponse.ALREADY_USED;
 		
-		return false;
+		return LoginResponse.OK;
 	}
+
+	public boolean doesRegisterBuyerExist(String dni, int tel) {
+		for(User user : userSet) {
+			if(user.canBuy()) {
+				if (user.getBuyerInfo()!= null){
+					String[] newStr = user.getBuyerInfo().split("\\s+");
+					int aux = Integer.parseInt(newStr[1]);
+			        if (newStr[0].equals(dni) || aux == tel)
+			        	return true;
+				}
+				
+			}
+		}
+			return false;	
+	}
+
+	public void addBuyer(String email, String password, String user,String dir, String dni, int tel) {
+		UserInfo ui = new UserInfo(email,password,user);
+		BuyerInfo bi = new BuyerInfo(dir,dni,tel);
+		
+		User u = new Buyer(ui,bi);
+		if (u!=null)
+			userSet.add(u);
+	}
+
+	
 
 	/*
 	 * public void consultaAltasPendientes(Admin admin) { for (user user:
