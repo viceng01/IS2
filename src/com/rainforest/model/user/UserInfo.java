@@ -24,6 +24,12 @@ public class UserInfo {
 		// TODO Auto-generated constructor stub
 	}
 
+	public UserInfo(String email, String password, String user) {
+		this.email = email;
+		this.password = password;
+		this.username = user;
+	}
+
 	public String getEmail() {
 		return email;
 	}

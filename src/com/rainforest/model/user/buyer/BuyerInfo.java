@@ -13,6 +13,18 @@ public class BuyerInfo{
 		this.tel = telefono;
 	}
 
+	public String getDir() {
+		return dir;
+	}
+
+	public String getDNI() {
+		return DNI;
+	}
+
+	public int getTel() {
+		return tel;
+	}
+
 
 	
 }

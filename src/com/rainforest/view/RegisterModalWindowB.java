@@ -27,6 +27,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import org.json.JSONObject;
+
 public class RegisterModalWindowB extends JDialog implements ActionListener{
 
 	private static final String USER_TYPE_BUYER = "Buyer";
@@ -43,6 +45,8 @@ public class RegisterModalWindowB extends JDialog implements ActionListener{
 	private MainWindow mw;
 	private ControlPanel cp;
 	private int option;
+	private JSONObject jo;
+	private boolean add;
 
 	public RegisterModalWindowB(MainWindow mainWindow,ControlPanel cp) {
 		mw = mainWindow;
@@ -178,12 +182,6 @@ public class RegisterModalWindowB extends JDialog implements ActionListener{
 		return formPanel;
 	}
 
-
-	private void showMessageDialog(String message) {
-		JOptionPane.showConfirmDialog(null, message, "Registration", JOptionPane.DEFAULT_OPTION,
-				JOptionPane.INFORMATION_MESSAGE);
-	}
-
 	
 	public int open() {
 		//setResizable(false);
@@ -194,9 +192,16 @@ public class RegisterModalWindowB extends JDialog implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == submit) {//Cuando se ha registrado volver a la otra pantalla y darlo de alta en los json
-			showMessageDialog("Reg successful");
-		}
+		add = false;
+		if (dirTextField.getText().equals("") || telTextField.getText().equals("") || dniTextField.getText().equals(""))
+			showErrorDialog("Some fields empty");
+		int aux = Integer.parseInt(telTextField.getText());
+		if (mw.doesRegisterBuyerExist(dniTextField.getText(), aux)) 
+			showErrorDialog("Data already used");
+		else 
+			add = true;
+		
+			
 		
 	}
 	
@@ -212,4 +217,33 @@ public class RegisterModalWindowB extends JDialog implements ActionListener{
 	        	setVisible(true);
 	        }
 		}
+	 
+	 private void showErrorDialog(String message) {
+			JOptionPane.showConfirmDialog(null, message, "Register error", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.ERROR_MESSAGE);
+		}
+	 
+	 private void showMessageDialog(String message) {
+			JOptionPane.showConfirmDialog(null, message, "Registration", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.INFORMATION_MESSAGE);
+		}
+	 
+	 public String getDNI() {
+		 if (add)
+			 return dniTextField.getText();
+		 return null;
+	 }
+	 
+	 public int getTel() {
+		 if (add)
+			 return Integer.parseInt(telTextField.getText());
+		 return 0;
+	 }
+	 
+	 public String getDir() {
+		 if (add)
+			 return dirTextField.getText();
+		 return null;
+	 }
+	 
 }
