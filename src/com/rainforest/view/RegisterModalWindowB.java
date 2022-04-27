@@ -14,11 +14,9 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
-import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -39,9 +37,6 @@ public class RegisterModalWindowB extends JDialog implements ActionListener{
 	private JTextField dniTextField;
 	private JTextField telTextField;
 	private JButton submit;
-	private JComboBox<String> userTypeComboBox;
-	private ProductsList productList;
-	private ProductsListSeller pls;
 	private MainWindow mw;
 	private ControlPanel cp;
 	private int option;
@@ -85,50 +80,27 @@ public class RegisterModalWindowB extends JDialog implements ActionListener{
 		this.addWindowListener(new WindowListener() {
 
 			@Override
-			public void windowOpened(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void windowOpened(WindowEvent e) {}
 
 			@Override
 			public void windowClosing(WindowEvent e) {
 				quit();
-				
 			}
 
 			@Override
-			public void windowClosed(WindowEvent e) {
-				
-				// TODO Auto-generated method stub
-				
-			}
+			public void windowClosed(WindowEvent e) {}
 
 			@Override
-			public void windowIconified(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void windowIconified(WindowEvent e) {}
 
 			@Override
-			public void windowDeiconified(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void windowDeiconified(WindowEvent e) {}
 
 			@Override
-			public void windowActivated(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void windowActivated(WindowEvent e) {}
 
 			@Override
-			public void windowDeactivated(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-           
-
+			public void windowDeactivated(WindowEvent e) {}
         });
 		
 		pack();
@@ -184,9 +156,7 @@ public class RegisterModalWindowB extends JDialog implements ActionListener{
 
 	
 	public int open() {
-		//setResizable(false);
 		setVisible(true);
-		//this.setLocationRelativeTo(getParent());
 		return 1;
 	}
 
@@ -195,13 +165,27 @@ public class RegisterModalWindowB extends JDialog implements ActionListener{
 		add = false;
 		if (dirTextField.getText().equals("") || telTextField.getText().equals("") || dniTextField.getText().equals(""))
 			showErrorDialog("Some fields empty");
-		int aux = Integer.parseInt(telTextField.getText());
-		if (mw.doesRegisterBuyerExist(dniTextField.getText(), aux)) 
-			showErrorDialog("Data already used");
-		else 
-			add = true;
+		else {
+			int aux = Integer.parseInt(telTextField.getText());
+			if (mw.doesRegisterBuyerExist(dniTextField.getText(), aux)) 
+				showErrorDialog("Data already used");
+			else {
+				add = true;
+				setVisible(false);
+				cp.addBuyer(Integer.parseInt(telTextField.getText()),dirTextField.getText(),dniTextField.getText());
+				showMessageDialog("Succesful register!");
+				
+				dirTextField.setText(null);
+				dniTextField.setText(null);
+				telTextField.setText(null);
+				
+	
+				mw.setVisible(true);
+				cp.setVisible(true);
+				
+			}
+		}		
 		
-			
 		
 	}
 	
@@ -227,23 +211,5 @@ public class RegisterModalWindowB extends JDialog implements ActionListener{
 			JOptionPane.showConfirmDialog(null, message, "Registration", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.INFORMATION_MESSAGE);
 		}
-	 
-	 public String getDNI() {
-		 if (add)
-			 return dniTextField.getText();
-		 return null;
-	 }
-	 
-	 public int getTel() {
-		 if (add)
-			 return Integer.parseInt(telTextField.getText());
-		 return 0;
-	 }
-	 
-	 public String getDir() {
-		 if (add)
-			 return dirTextField.getText();
-		 return null;
-	 }
 	 
 }

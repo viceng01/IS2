@@ -14,11 +14,9 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
-import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -26,6 +24,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import org.json.JSONObject;
 
 public class RegisterModalWindowS extends JDialog implements ActionListener{
 
@@ -36,13 +36,13 @@ public class RegisterModalWindowS extends JDialog implements ActionListener{
 	private JTextField dirTextField;
 	private JTextField dniTextField;
 	private JTextField telTextField;
+	private JTextField rfcTextField;
 	private JButton submit;
-	private JComboBox<String> userTypeComboBox;
-	private ProductsList productList;
-	private ProductsListSeller pls;
 	private MainWindow mw;
 	private ControlPanel cp;
 	private int option;
+	private JSONObject jo;
+	private boolean add;
 
 	public RegisterModalWindowS(MainWindow mainWindow,ControlPanel cp) {
 		mw = mainWindow;
@@ -51,7 +51,7 @@ public class RegisterModalWindowS extends JDialog implements ActionListener{
 	}
 	
 	private void initGUI(MainWindow mainWindow) {
-		setTitle("Register Seller");
+		setTitle("Register Buyer");
 
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		
@@ -81,50 +81,27 @@ public class RegisterModalWindowS extends JDialog implements ActionListener{
 		this.addWindowListener(new WindowListener() {
 
 			@Override
-			public void windowOpened(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void windowOpened(WindowEvent e) {}
 
 			@Override
 			public void windowClosing(WindowEvent e) {
 				quit();
-				
 			}
 
 			@Override
-			public void windowClosed(WindowEvent e) {
-				
-				// TODO Auto-generated method stub
-				
-			}
+			public void windowClosed(WindowEvent e) {}
 
 			@Override
-			public void windowIconified(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void windowIconified(WindowEvent e) {}
 
 			@Override
-			public void windowDeiconified(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void windowDeiconified(WindowEvent e) {}
 
 			@Override
-			public void windowActivated(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void windowActivated(WindowEvent e) {}
 
 			@Override
-			public void windowDeactivated(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-           
-
+			public void windowDeactivated(WindowEvent e) {}
         });
 		
 		pack();
@@ -155,15 +132,17 @@ public class RegisterModalWindowS extends JDialog implements ActionListener{
 		JLabel dir = new JLabel("Direccion");
 		JLabel dni= new JLabel("DNI");
 		JLabel tel = new JLabel("Telefono");
+		JLabel rfc = new JLabel("RFC vendedor");
 
 		dirTextField = new JTextField(15);
 		dniTextField = new JTextField(15);
 		telTextField = new JTextField(15);
+		rfcTextField = new JTextField(15);
 
 		hGroup.addGroup(formLayout.createParallelGroup().addComponent(dir).addComponent(dni)
-				.addComponent(tel));
+				.addComponent(tel).addComponent(rfc));
 		hGroup.addGroup(formLayout.createParallelGroup().addComponent(dirTextField).addComponent(dniTextField)
-				.addComponent(telTextField));
+				.addComponent(telTextField).addComponent(rfcTextField));
 
 		vGroup.addGroup(formLayout.createParallelGroup(Alignment.BASELINE).addComponent(dir)
 				.addComponent(dirTextField));
@@ -171,6 +150,8 @@ public class RegisterModalWindowS extends JDialog implements ActionListener{
 				.addComponent(dniTextField));
 		vGroup.addGroup(formLayout.createParallelGroup(Alignment.BASELINE).addComponent(tel)
 				.addComponent(telTextField));
+		vGroup.addGroup(formLayout.createParallelGroup(Alignment.BASELINE).addComponent(rfc)
+				.addComponent(rfcTextField));
 
 		formLayout.setHorizontalGroup(hGroup);
 		formLayout.setVerticalGroup(vGroup);
@@ -178,25 +159,38 @@ public class RegisterModalWindowS extends JDialog implements ActionListener{
 		return formPanel;
 	}
 
-
-	private void showMessageDialog(String message) {
-		JOptionPane.showConfirmDialog(null, message, "Registration", JOptionPane.DEFAULT_OPTION,
-				JOptionPane.INFORMATION_MESSAGE);
-	}
-
 	
 	public int open() {
-		//setResizable(false);
 		setVisible(true);
-		//this.setLocationRelativeTo(getParent());
 		return 1;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == submit) {//Cuando se ha registrado volver a la otra pantalla y darlo de alta en los json
-			showMessageDialog("Reg successful");
-		}
+		add = false;
+		if (dirTextField.getText().equals("") || telTextField.getText().equals("") || dniTextField.getText().equals(""))
+			showErrorDialog("Some fields empty");
+		else {
+			int aux = Integer.parseInt(telTextField.getText());
+			if (mw.doesRegisterBuyerExist(dniTextField.getText(), aux)) 
+				showErrorDialog("Data already used");
+			else {
+				add = true;
+				setVisible(false);
+				cp.addSeller(Integer.parseInt(telTextField.getText()),dirTextField.getText(),dniTextField.getText(),rfcTextField.getText());
+				showMessageDialog("Succesful register!");
+				
+				dirTextField.setText(null);
+				dniTextField.setText(null);
+				telTextField.setText(null);
+				
+	
+				mw.setVisible(true);
+				cp.setVisible(true);
+				
+			}
+		}		
+		
 		
 	}
 	
@@ -212,4 +206,15 @@ public class RegisterModalWindowS extends JDialog implements ActionListener{
 	        	setVisible(true);
 	        }
 		}
+	 
+	 private void showErrorDialog(String message) {
+			JOptionPane.showConfirmDialog(null, message, "Register error", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.ERROR_MESSAGE);
+		}
+	 
+	 private void showMessageDialog(String message) {
+			JOptionPane.showConfirmDialog(null, message, "Registration", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.INFORMATION_MESSAGE);
+		}
+	 
 }

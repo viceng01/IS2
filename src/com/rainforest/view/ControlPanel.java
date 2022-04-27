@@ -14,6 +14,7 @@ import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,7 +28,7 @@ public class ControlPanel extends JPanel {
 
 	private static final String USER_TYPE_BUYER = "Buyer";
 	private static final String USER_TYPE_SELLER = "Seller";
-			
+	private static String _inFile = "BaseDeDatos.json";
 
 	private JTextField emailTextField;
 	private JTextField passwordTextField;
@@ -39,7 +40,9 @@ public class ControlPanel extends JPanel {
 	private RegisterModalWindowS rmws;
 	private MainWindow mw;
 	private Controller ctrl;
-	
+	private String email;
+	private String password;
+	private String username ;
 
 	public ControlPanel(MainWindow mainWindow, Controller ctrl) {
 		this.ctrl= ctrl; 
@@ -55,11 +58,6 @@ public class ControlPanel extends JPanel {
 	}
 	
 	private void initGUI(MainWindow mainWindow) {
-		//JPanel contentPane = new JPanel();
-		//setContentPane(contentPane);
-
-
-		//lmw = new LoginModalWindow(mw);
 		
 		
 		JPanel formPanel = createFormPanel();
@@ -74,6 +72,7 @@ public class ControlPanel extends JPanel {
 		setVisible(true);
 	}
 
+	
 	private JPanel createButtonPanel(MainWindow mainWindow) {
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new FlowLayout());
@@ -98,20 +97,12 @@ public class ControlPanel extends JPanel {
 					int sol = pls.open();
 					if (sol == 1) {
 						setVisible(false);
-					}else {
-		
-						setVisible(true);
-						this.mw.setVisible(true);
 					}
 					
 				}else {
 					int sol = productList.open();
 					if (sol == 1) {
 						setVisible(false);
-					}else {
-		
-						setVisible(true);
-						this.mw.setVisible(true);
 					}
 				}
 				
@@ -145,10 +136,13 @@ public class ControlPanel extends JPanel {
 			showErrorDialog(message);
 		});
 		registerButton.addActionListener((ae) -> {
-			String email = emailTextField.getText();
+			email = emailTextField.getText();
 
-			String password = passwordTextField.getText();
-			String username = usernameTextField.getText();
+			password = passwordTextField.getText();
+			username = usernameTextField.getText();
+			
+			//Para comprobar que los datos del usuario que hemos introducido no esten 
+			//ya dados de alta en la base de datos
 			LoginResponse r = mainWindow.doesUserExist(email,password,username);
 			if (r != LoginResponse.OK) {
 				String message;
@@ -158,54 +152,40 @@ public class ControlPanel extends JPanel {
 					message = "Some fields empty";
 					break;
 				case ALREADY_USED:
-					message = "Dataa already used";
+					message = "Data already used";
 					break;
 				default:
 					message = "Unexpected error";
 				}
-				showErrorDialog(message);
+				JOptionPane.showConfirmDialog(null, message, "Register error", JOptionPane.DEFAULT_OPTION,
+						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 
 			String type = userTypeComboBox.getSelectedItem().toString();
-
-			//LoginResponse response = mainWindow.authenticateR(email, username);
-
-			//Aqui sabemos el timpo de usuario que es
 			
+			//En caso de seleccionar el buyer...
 				if (userTypeComboBox.getSelectedItem().equals(USER_TYPE_BUYER)) {
+					//Abrimos el jdialog para registrar un buyer
 					int option = rmwb.open();
 					if (option == 1) {
 						setVisible(false);
-					}else {
-						setVisible(true);
-						this.mw.setVisible(true);
 					}
-					if (rmwb.getTel() != 0) {
-						ctrl.addBuyer(email,password,username,rmwb.getDir(),rmwb.getDNI(),rmwb.getTel());
-					}
-					//mainWindow.registerBuyer(email, password, username);
 				} else {
-					int option = rmwb.open();
+					//Abrimos el jdialog para registrar un buyer
+					int option = rmws.open();
 					if (option == 1) {
 						setVisible(false);
-					}else {
-						setVisible(true);
-						this.mw.setVisible(true);
 					}
-					//mainWindow.registerSeller(email, password, username);
-					//showMessageDialog("Your registration request has been sent and will be processed by an administrator");
-					
 				}
 				this.mw.setVisible(false);
+
 				emailTextField.setText(null);
 				passwordTextField.setText(null);
 				usernameTextField.setText(null);
 				userTypeComboBox.setSelectedIndex(0);
 				return;
 			
-			
-			//dispose();
 		});
 
 		buttonPanel.add(loginButton);
@@ -272,6 +252,18 @@ public class ControlPanel extends JPanel {
 	private void showMessageDialog(String message) {
 		JOptionPane.showConfirmDialog(null, message, "Seller registration", JOptionPane.DEFAULT_OPTION,
 				JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public void addBuyer(int tel,String dir, String dni) {
+		if (tel != 0) {
+			ctrl.addBuyer(email,password,username,dir,dni,tel);
+		}
+	}
+	
+	public void addSeller(int tel,String dir, String dni, String rfc) {
+		if (tel != 0) {
+			ctrl.addSeller(email,password,username,dir,dni,tel,rfc);
+		}
 	}
 	
 	

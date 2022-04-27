@@ -82,10 +82,10 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 		mainPanel.add(tablaMedio, BorderLayout.CENTER);
 		mainPanel.add(abajoPanel,BorderLayout.PAGE_END);
 		
-		
+		/*
 		for(int i = 0; i < 30; ++i) {
 			tablaMedio.add(new ProductButton());
-		}
+		}*/
 		
 
 		setContentPane(mainPanel);
