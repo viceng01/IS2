@@ -30,13 +30,14 @@ public class BuyerBuilder extends Builder<User>{
 		String password = data.getString("password");
 		String username = data.getString("username");
 		
-		UserInfo u = new UserInfo (g,email,password,username);
-		/*TODO*/
-		//De momento no nos hace falta !!!
 		String dir = data.getString("direction");
 		String dni = data.getString("dni");
 		int tel = data.getInt("tel");
-		BuyerInfo b = new BuyerInfo(dir,dni,tel);
+		UserInfo u = new UserInfo (g,email,password,username,dir,dni,tel);
+		/*TODO*/
+		//De momento no nos hace falta !!!
+		
+		BuyerInfo b = new BuyerInfo();
 		
 		return new Buyer (u,b);
 	}

@@ -18,6 +18,9 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import com.rainforest.model.user.User;
+
 import javax.swing.ImageIcon;
 
 public class ProductsList extends JDialog implements ActionListener{
@@ -25,24 +28,30 @@ public class ProductsList extends JDialog implements ActionListener{
 	protected int _status;
 	private JButton addButton;
 	private JButton removeButton;
-
+	private JButton modify;
 	private JButton sigOut;
 	private JButton cestaC;
+	
+	private JLabel direccion;
 
 	private JPanel botonesArriba;
 	
 	private MainWindow mw;
 	private ControlPanel cp;
+	private ModifyBuyer mb;
+	
+	private User u;
 	
 	public ProductsList(MainWindow mw, ControlPanel cp) {
 		this.mw = mw;
 		this.cp = cp;
+		mb = new ModifyBuyer(mw,cp,this);
 		initGUI();
 	}
 
 	private void initGUI( ) {
 		setTitle("Product List");
-		JPanel mainPanel = new JPanel(new BorderLayout());
+		JPanel mainPanel = new JPanel(new FlowLayout());
 		//setLayout(new GridLayout(0, 4));
 		
 		//
@@ -51,7 +60,7 @@ public class ProductsList extends JDialog implements ActionListener{
 		arribaPanel.setLayout(new FlowLayout (FlowLayout.LEFT));
 		
 		
-		JLabel direccion = new JLabel("Direccion:");
+		direccion = new JLabel("Direccion:");
 		
 		botonesArriba = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		botonesArriba.add(direccion);
@@ -60,7 +69,7 @@ public class ProductsList extends JDialog implements ActionListener{
 		this.add(Box.createRigidArea(new Dimension(10, 0)));
 		sigOut();
 		
-		
+		modifyUser();
 		
 		arribaPanel.add(botonesArriba);
 		//
@@ -90,48 +99,29 @@ public class ProductsList extends JDialog implements ActionListener{
 		this.addWindowListener(new WindowListener() {
 
 			@Override
-			public void windowOpened(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void windowOpened(WindowEvent e) {}
 
 			@Override
 			public void windowClosing(WindowEvent e) {
 				quit();
-				
 			}
 
 			@Override
-			public void windowClosed(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void windowClosed(WindowEvent e) {}
 
 			@Override
-			public void windowIconified(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void windowIconified(WindowEvent e) {}
 
 			@Override
-			public void windowDeiconified(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void windowDeiconified(WindowEvent e) {}
 
 			@Override
 			public void windowActivated(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
+				direccion.setText("Direccion: " + u.getUserInfo().getDir());
 			}
 
 			@Override
-			public void windowDeactivated(WindowEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-           
+			public void windowDeactivated(WindowEvent e) {}
 
         });
 		
@@ -174,10 +164,10 @@ public class ProductsList extends JDialog implements ActionListener{
 		}
 	}
 
-	public int open() {
-		//setResizable(false);
+	public int open(User u) {
+		this.u = u;
+		direccion.setText("Direccion: " + u.getUserInfo().getDir());
 		setVisible(true);
-		//this.setLocationRelativeTo(getParent());
 		return 1;
 	}
 	
@@ -209,13 +199,36 @@ public class ProductsList extends JDialog implements ActionListener{
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						setVisible(false);
+						//setVisible(false);
+						
 						
 					}
 				});
 				cestaC.setToolTipText("Cesta compra");
 				this.botonesArriba.add(cestaC);
 		
+	}
+	
+	public void modifyUser(){
+		//creamos el nuevo boton con la imagen proporcionada
+		modify = new JButton(new ImageIcon("resources/usuario.png"));
+		
+		modify.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				int o = mb.open(u);
+				if (o == 1) {
+					setVisible(false);
+				}
+				
+				return;
+				//quit();
+			}
+		});
+		modify.setToolTipText("Modifica datos usuario");
+		this.botonesArriba.add(modify);
 	}
 	
 	 private void quit() {

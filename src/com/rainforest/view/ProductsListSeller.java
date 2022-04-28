@@ -25,28 +25,35 @@ import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
 
+import com.rainforest.model.user.User;
+
 public class ProductsListSeller extends JDialog implements ActionListener{
 
 	protected int _status;
 	private int option;
 	private JButton addButton;
 	private JButton removeButton;
+	protected JLabel direccion;
 
 	private JButton sigOut;
+	private JButton modify;
 
 	private JPanel botonesArriba;
 	
 	private MainWindow mw;
 	private ControlPanel cp;
+	private ModifySeller ms;
+	private User u;
 	
 	public ProductsListSeller(MainWindow mw, ControlPanel cp) {
 		this.mw = mw;
 		this.cp = cp;
+		ms = new ModifySeller(mw,cp, this);
 		initGUI();
 	}
 
 	private void initGUI( ) {
-		setTitle("Product List");
+		setTitle("User data");
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		//setLayout(new GridLayout(0, 4));
 		
@@ -56,14 +63,15 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 		arribaPanel.setLayout(new FlowLayout (FlowLayout.LEFT));
 		
 		
-		JLabel direccion = new JLabel("Direccion:");
+		direccion = new JLabel("Direccion:");
+		
 		
 		botonesArriba = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		botonesArriba.add(direccion);
 		this.add(Box.createRigidArea(new Dimension(10, 0)));
 		sigOut();
 		
-		
+		modifyUser();
 		
 		arribaPanel.add(botonesArriba);
 		//
@@ -125,6 +133,7 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 
 			@Override
 			public void windowActivated(WindowEvent e) {
+				direccion.setText("Direccion: " + u.getUserInfo().getDir());
 				// TODO Auto-generated method stub
 				
 			}
@@ -170,6 +179,7 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 	
 	}
 	public void actionPerformed(ActionEvent e) {
+		
 		if(e.getSource() == "Add") {
 
 			showMessageDialog("Add successful");
@@ -178,7 +188,9 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 		}
 	}
 
-	public int open() {
+	public int open(User user) {
+		this.u = user;
+		
 		//setResizable(false);
 		setVisible(true);
 		//this.setLocationRelativeTo(getParent());
@@ -205,6 +217,28 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 		this.botonesArriba.add(sigOut);
 	}
 	
+	public void modifyUser(){
+		//creamos el nuevo boton con la imagen proporcionada
+		modify = new JButton(new ImageIcon("resources/usuario.png"));
+		
+		modify.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				int o = ms.open(u);
+				if (o == 1) {
+					setVisible(false);
+				}
+				direccion.setText("Direccion: " + u.getUserInfo().getDir());
+				return;
+				//quit();
+			}
+		});
+		modify.setToolTipText("Modifica datos usuario");
+		this.botonesArriba.add(modify);
+	}
+	
 	 private void quit() {
 	    	option = JOptionPane.showOptionDialog(this, "Are you sure you want to sign out?", "Sign Out", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, 1); // el 1 es para q x defecto la opcion senalada sea NO
 	        if (option == 0) {
@@ -216,5 +250,9 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 	        	setVisible(true);
 	        }
 		}
+	 
+	 public void setDir(String dir) {
+		 direccion.setText("Direccion: " + dir);
+	 }
 	
 }

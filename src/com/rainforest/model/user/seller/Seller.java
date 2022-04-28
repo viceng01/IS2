@@ -18,15 +18,17 @@ public class Seller extends User {
 
 	
 
+	
 	public JSONObject getSellerInfo() {
 		JSONObject salida = new JSONObject();
+		
 		salida.put("email", u.getEmail());
 		salida.put("password", u.getPassword());
 		salida.put("username", u.getUsername());
 		salida.put("GUID", u.getUserID());
-		salida.put("direction",this.sellerInfo.getDir());
-		salida.put("tel",Integer.toString(this.sellerInfo.getTel()));
-		salida.put("dni",this.sellerInfo.getDNI());
+		salida.put("direction",u.getDir());
+		salida.put("tel",Integer.toString(u.getTel()));
+		salida.put("dni",u.getDNI());
 		salida.put("RFC", this.sellerInfo.getRfc());
 		return salida;
 	}
@@ -40,12 +42,6 @@ public class Seller extends User {
 	public boolean canBuy() {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-
-	@Override
-	public int hashCode() {
-		return sellerInfo.hashCode();
 	}
 
 

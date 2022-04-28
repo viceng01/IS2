@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="product" version="4">
+  <OBJECT>
+    <ID name="product" mc="Standard.Package" uid="fb03635e-f6b5-419f-98a4-939c1eb2fa98"/>
+    <PID name="model" mc="Standard.Package" uid="9438a2cc-6768-4003-a75d-9b9be1b99383"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[product]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Catalogue" mc="Standard.Class" uid="ae0c6f89-cc29-47fc-a0a1-8c0defcfcfd0"/>
+        <COMPID name="Product" mc="Standard.Class" uid="71a51b6b-b3df-40cb-b505-bec71389dea5"/>
+        <COMPID name="ProductCollection" mc="Standard.Class" uid="c9aff519-9bf1-4633-9400-6f5bfc75ee76"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

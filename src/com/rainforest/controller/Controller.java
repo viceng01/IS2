@@ -38,16 +38,16 @@ public class Controller {
 		return model.addUser(user);
 	}
 
-	public LoginResponse doesUserExist(String email, String password,String user) {
-		return model.doesUserExist(email,password,user);
+	public LoginResponse doesUserExist(String email, String pasw,String user) {
+		return model.doesUserExist(email,pasw,user);
 	}
 	
 	public boolean doesRegisterBuyerExist(String dni, int tel) {
 		return model.doesRegisterBuyerExist(dni,tel);
 	}
 	
-	public boolean removeUser(User user) {
-		return model.removeUser(user);
+	public boolean removeUser(String email, String password,String type) {
+		return model.removeUser(email, password,type);
 	}
 
 	public LoginResponse tryLogin(String email, String password,String type) {
@@ -110,6 +110,52 @@ public class Controller {
 			e1.printStackTrace();
 		}
 		
+	}
+
+
+
+	public User getUser(String text) {
+		return model.getUser(text);
+		
+	}
+
+
+
+	
+
+
+
+	public boolean tryModifyUser(String user, String dni) {
+		// TODO Auto-generated method stub
+		return model.tryModifyUser(user,dni);
+	}
+
+
+
+	public boolean tryModifyTel(int tel, String dni) {
+		// TODO Auto-generated method stub
+		return model.tryModifyTel(tel, dni);
+	}
+
+
+
+	public boolean tryModifyEmail(String email, String dni) {
+		// TODO Auto-generated method stub
+		return model.tryModifyEmail(email, dni);
+	}
+
+
+
+	public boolean tryModifyDir(String dir, String dni) {
+		// TODO Auto-generated method stub
+		return model.tryModifyDir(dir, dni);
+	}
+
+
+
+	public boolean tryModifyPass(String pass, String dni) {
+		// TODO Auto-generated method stub
+		return model.tryModifyPass(pass, dni);
 	}
 
 

@@ -29,16 +29,16 @@ public class SellerBuilder extends Builder<User>{
 		String password = data.getString("password");
 		String username = data.getString("username");
 		
-		UserInfo u = new UserInfo (g,email,password,username);
 		String dir = data.getString("direction");
 		String dni = data.getString("dni");
 		int tel = data.getInt("tel");
+		UserInfo u = new UserInfo (g,email,password,username,dir,dni,tel);
 		String rfc;
 		if (data.has("RFC"))
 			rfc = data.getString("RFC");
 		else
 			rfc = "";
-		SellerInfo b = new SellerInfo(dir,dni,tel,rfc);
+		SellerInfo b = new SellerInfo(rfc);
 		
 		return new Seller (u,b);
 	}

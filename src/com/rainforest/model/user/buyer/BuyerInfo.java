@@ -7,11 +7,9 @@ public class BuyerInfo{
 	private String DNI;
 	private int tel;
 	
-	public BuyerInfo(String dir, String DNI, int telefono) {
-		this.dir = dir;
-		this.DNI= DNI;
-		this.tel = telefono;
+	public BuyerInfo() {
 	}
+
 
 	public String getDir() {
 		return dir;

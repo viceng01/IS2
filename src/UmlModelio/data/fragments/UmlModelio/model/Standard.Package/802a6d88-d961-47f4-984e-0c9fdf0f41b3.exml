@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="file" version="4">
+  <OBJECT>
+    <ID name="file" mc="Standard.Package" uid="802a6d88-d961-47f4-984e-0c9fdf0f41b3"/>
+    <PID name="toolbar" mc="Standard.Package" uid="7af4f77d-b0aa-44f8-b5db-f336f94f908a"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[file]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="ExitMenuItem" mc="Standard.Class" uid="81144817-2c59-43e4-8974-ed2eea297df9"/>
+        <COMPID name="GeneralMenu" mc="Standard.Class" uid="5312526c-deb8-4cd2-91fc-acf4ea91a8ec"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
