@@ -3,15 +3,16 @@ package com.rainforest.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.rainforest.core.GUID;
 import com.rainforest.model.user.User;
 import com.rainforest.model.user.UserInfo;
-import com.rainforest.model.user.admin.Admin;
 import com.rainforest.model.user.buyer.Buyer;
 import com.rainforest.model.user.buyer.BuyerInfo;
-import com.rainforest.model.user.registration.SellerRegistrationRequest;
-import com.rainforest.model.user.registration.UserRegistrationRequest;
 import com.rainforest.model.user.seller.Seller;
+import com.rainforest.model.user.seller.SellerInfo;
 import com.rainforest.view.LoginResponse;
 
 /**
@@ -21,19 +22,11 @@ import com.rainforest.view.LoginResponse;
 public class RainforestModel {
 
 	private Set<User> userSet;
-	private User currentUser;
 
-	private Set<UserRegistrationRequest> registrationRequestSet;
 
 	public RainforestModel() {
 		userSet = new HashSet<>();
-		//public UserInfo(GUID userID, String email, String password, String username) {
-		//UserInfo uInfo = new UserInfo(new GUID(), "d", "1", "dr");
-		
-		//Seller u = new Seller(uInfo);
-		
-		//userSet.add(u);
-		registrationRequestSet = new HashSet<>();
+
 	}
 
 	/**
@@ -50,14 +43,6 @@ public class RainforestModel {
 		}
 		return userSet.add(user);
 	}
-	
-	public void registerBuyer(String email, String password, String username) {
-		
-	}
-	
-	public void registerSeller(String email, String password, String username) {
-		registrationRequestSet.add(new SellerRegistrationRequest(email, password, username));
-	}
 
 	/**
 	 * Attempts to remove a user from the model. Returns true if the user was
@@ -73,23 +58,6 @@ public class RainforestModel {
 			return false;
 		}
 		return userSet.remove(user);
-	}
-
-	public Set<UserRegistrationRequest> getRegistrationRequestsCopy() {
-		return new HashSet<>(registrationRequestSet);
-	}
-
-	public boolean addUserRegistrationRequest(UserRegistrationRequest urr) {
-		if (!isValidRegistrationRequest(urr))
-			return false;
-
-		return registrationRequestSet.add(urr);
-	}
-
-	private boolean isValidRegistrationRequest(UserRegistrationRequest rr) {
-		// TODO: Validate user registration
-
-		return true;
 	}
 
 	public LoginResponse tryLogin(String email, String password, String type) {
@@ -132,10 +100,9 @@ public class RainforestModel {
 	public boolean doesRegisterBuyerExist(String dni, int tel) {
 		for(User user : userSet) {
 			if(user.canBuy()) {
-				if (user.getBuyerInfo()!= null){
-					String[] newStr = user.getBuyerInfo().split("\\s+");
-					int aux = Integer.parseInt(newStr[1]);
-			        if (newStr[0].equals(dni) || aux == tel)
+				JSONObject jo = user.getBuyerInfo();
+				if (jo!= null){
+			        if (jo.get("dni").equals(dni) || jo.getInt("tel") == tel)
 			        	return true;
 				}
 				
@@ -145,27 +112,43 @@ public class RainforestModel {
 	}
 
 	public void addBuyer(String email, String password, String user,String dir, String dni, int tel) {
-		UserInfo ui = new UserInfo(email,password,user);
+		UserInfo ui = new UserInfo(new GUID(),email,password,user);
 		BuyerInfo bi = new BuyerInfo(dir,dni,tel);
 		
 		User u = new Buyer(ui,bi);
 		if (u!=null)
 			userSet.add(u);
 	}
-
 	
+	public void addSeller(String email, String password, String user,String dir, String dni, int tel, String rfc) {
+		UserInfo ui = new UserInfo(new GUID(),email,password,user);
+		SellerInfo si = new SellerInfo(dir,dni,tel,rfc);
+		
+		User u = new Seller(ui,si);
+		if (u!=null)
+			userSet.add(u);
+	}
 
-	/*
-	 * public void consultaAltasPendientes(Admin admin) { for (user user:
-	 * this.userSet) { if ()
-	 * 
-	 * } }
-	 * 
-	 * public void darAltasPendientes(user user, Admin admin) { if
-	 * (user.getuserInfo().getuserID() == null) { admin.asignaIDVendedor(user); }
-	 * 
-	 * 
-	 * }
-	 */
+	public JSONArray getUsuarios() {
+		JSONArray  ja = new JSONArray ();
+		
+		for (User u : userSet) {
+			JSONObject tipo = new JSONObject();
+			if (u.canBuy()) {
+				JSONObject datos = new JSONObject(u.getBuyerInfo().toString());
+				tipo.put("data",datos);	
+				tipo.put("type","buyer");
+			}else {
+				JSONObject datos = new JSONObject(u.getSellerInfo().toString());
+				tipo.put("data",datos);
+				tipo.put("type","seller");
+			}
+			
+			ja.put(tipo);
+			
+		}
+		
+		return ja;
+	}
 
 }

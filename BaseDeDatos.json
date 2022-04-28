@@ -1,22 +1,27 @@
-{
-  "usuarios": [
-	 {
-	  "type" : "seller",
-	  "data" : {
-		"GUID" : "",
-	  	"email": "d@ucm.es",
-		"password": "1234",
-		"username": "d"
-	  }
-	 },
-	 {
-	  "type" : "buyer",
-	  "data" : {
-		"GUID" : "",
-	  	"email": "v@ucm.es",
-		"password": "1234",
-		"username": "v"
-	  }
-	 }
-  ]
-}
+{"usuarios": [
+   {
+      "data": {
+         "password": "1234",
+         "GUID": "d4bbd27b-8479-4393-aa60-44ab717e921f",
+         "tel": "1234",
+         "email": "v@ucm.es",
+         "dni": "X4356234W",
+         "username": "v",
+         "direction": "calle VII, 14"
+      },
+      "type": "buyer"
+   },
+   {
+      "data": {
+         "password": "1234",
+         "GUID": "a5efdb45-ca88-4731-8934-6fa408991c1a",
+         "tel": "1234",
+         "email": "d@ucm.es",
+         "dni": "X4356234W",
+         "RFC": "",
+         "username": "d",
+         "direction": "calle VII, 14"
+      },
+      "type": "seller"
+   }
+]}

@@ -35,57 +35,30 @@ import com.rainforest.model.user.User;
 public class MainWindow extends JFrame {
 
 	private Controller controller;
-	private static String _inFile = "BaseDeDatos.json";
-	private static Factory<User> _eventsFactory = null;
 
-	public MainWindow() {
-		super("Login");
-		//A lo mejor es buan idea inicializar las factorias
-		//y el controller fuera del main window 0.0
-		initFactories();
-		controller = new Controller(_eventsFactory);
-		InputStream in = null;
-		try {
-			in = new FileInputStream(_inFile);
-			controller.loadDataBase(in);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+	public MainWindow(Controller ctrl) {
+		super("Rainforest");
+		
+		this.controller = ctrl;
 		
 		//Abrir y leer de bloc de notas los usuarios que ya estan logueados
 		initGUI();
 	}
 	
-	private static void initFactories() {
-		List<Builder<User>> lista = new ArrayList<>();
-		lista.add(new BuyerBuilder());
-		lista.add(new SellerBuilder());
-
-		Factory<User> eventsFactory = new BuilderBasedFactory<>(lista);
-		_eventsFactory = eventsFactory;
-		
-	}
+	
 
 	public void close() {
 		dispose();
 		System.exit(0);
 	}
 	
-	
+	//Patron 
 	public LoginResponse authenticate(String email, String password,String type) {
 		return controller.tryLogin(email, password,type);
 	}
 	
 	public LoginResponse doesUserExist(String email, String password,String user) {
 		return controller.doesUserExist(email,password,user);
-	}
-	
-	public void registerBuyer(String email, String password, String username) {
-		controller.registerBuyer(email, password, username);
-	}
-	
-	public void registerSeller(String email, String password, String username) {
-		controller.registerSeller(email, password, username);
 	}
 	
 	public boolean doesRegisterBuyerExist(String dni,int tel) {
@@ -110,7 +83,6 @@ public class MainWindow extends JFrame {
 	}
 
 	private void doSetup() {
-		//add(new JScrollPane(new ProductsList()), BorderLayout.CENTER);
 		
 		//Alto y ancho de la pantalla del ordenador, para que en caso de que 
 		//se utilicen distintos tamaños de pantalla de ordenador, se adapte
@@ -131,20 +103,36 @@ public class MainWindow extends JFrame {
 		
 		//
 		
-		//Utilizamos un GridLayout para que se separe el JPanel central en 2 
-		//Teniendo a la izquierda usuario y contraseña y a la derecha los botones de login y de registro
-		
-		//mainPanel.add(viewsPanel, BorderLayout.CENTER);
-		
 		JPanel cp = new ControlPanel(this,controller);
 		mainPanel.add(cp, BorderLayout.CENTER);
 		
-		/*
-		JPanel loginDialog = new LoginModalWindow(this);
-		loginDialog.setVisible(true);
 		
-		mainPanel.add(loginDialog);
-		*/
+		this.addWindowListener(new WindowListener() {
+
+            @Override
+            public void windowOpened(WindowEvent e) {}
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                saveChanges();
+            }
+
+			@Override
+            public void windowClosed(WindowEvent e) {}
+
+            @Override
+            public void windowIconified(WindowEvent e) {}
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {}
+
+            @Override
+            public void windowActivated(WindowEvent e) {}
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {}
+
+        });
 		
 	}
 
@@ -152,6 +140,10 @@ public class MainWindow extends JFrame {
 		doPreSetup();
 		doSetup();
 		doPostSetup();
+	}
+	
+	private void saveChanges() {
+		controller.saveChanges();
 	}
 
 }

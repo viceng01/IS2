@@ -1,0 +1,28 @@
+{
+  "usuarios": [
+	 {
+	  "type" : "seller",
+	  "data" : {
+		"GUID" : "",
+	  	"email": "d@ucm.es",
+		"password": "1234",
+		"username": "d",
+		"direction": "calle VII, 14",
+		"dni": "X4356234W",
+		"tel": 1234
+	  }
+	 },
+	 {
+	  "type" : "buyer",
+	  "data" : {
+		"GUID" : "",
+	  	"email": "v@ucm.es",
+		"password": "1234",
+		"username": "v",
+		"direction": "calle VII, 14",
+		"dni": "X4356234W",
+		"tel": 1234
+	  }
+	 }
+  ]
+}
