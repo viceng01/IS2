@@ -2,7 +2,7 @@ package com.rainforest.model.product;
 
 import com.rainforest.core.GUID;
 
-public abstract class Product {
+public class Product {
 
 	private GUID guid;
 	private String name;

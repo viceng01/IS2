@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import com.rainforest.core.GUID;
 import com.rainforest.factories.Factory;
 import com.rainforest.model.RainforestModel;
 import com.rainforest.model.user.User;
@@ -50,8 +51,8 @@ public class Controller {
 		return model.removeUser(email, password,type);
 	}
 
-	public LoginResponse tryLogin(String email, String password,String type) {
-		return model.tryLogin(email, password,type);
+	public LoginResponse tryLogin(String email, String password,String type, String user) {
+		return model.tryLogin(email, password,type,user);
 	}
 	
 
@@ -156,6 +157,13 @@ public class Controller {
 	public boolean tryModifyPass(String pass, String dni) {
 		// TODO Auto-generated method stub
 		return model.tryModifyPass(pass, dni);
+	}
+
+
+
+	public JSONArray getProducts(GUID guid) {
+		// TODO Auto-generated method stub
+		return model.getProducts(guid);
 	}
 
 

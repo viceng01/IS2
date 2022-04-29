@@ -35,6 +35,7 @@ public class ProductsList extends JDialog implements ActionListener{
 	private JLabel direccion;
 
 	private JPanel botonesArriba;
+	private JPanel arribaPanel;
 	
 	private MainWindow mw;
 	private ControlPanel cp;
@@ -50,28 +51,29 @@ public class ProductsList extends JDialog implements ActionListener{
 	}
 
 	private void initGUI( ) {
-		setTitle("Product List");
-		JPanel mainPanel = new JPanel(new FlowLayout());
-		//setLayout(new GridLayout(0, 4));
+		setTitle("Buyer interface");
+		JPanel mainPanel = new JPanel();
+		mainPanel.setPreferredSize(new Dimension(500,200));
+		/*JPanel viewsPanel = new JPanel();
+		mainPanel.setLayout(new BoxLayout(viewsPanel, BoxLayout.Y_AXIS));*/
 		
-		//
-		//
-		JPanel arribaPanel = new JPanel(new FlowLayout (FlowLayout.LEFT));
-		arribaPanel.setLayout(new FlowLayout (FlowLayout.LEFT));
 		
+		arribaPanel = new JPanel(new FlowLayout());
+		
+		
+		mainPanel.add(arribaPanel,BorderLayout.PAGE_START);
 		
 		direccion = new JLabel("Direccion:");
+		arribaPanel.add(direccion);
 		
-		botonesArriba = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		botonesArriba.add(direccion);
-		this.add(Box.createRigidArea(new Dimension(10, 0)));
+		//this.add(Box.createRigidArea(new Dimension(10, 0)));
 		cesta();
-		this.add(Box.createRigidArea(new Dimension(10, 0)));
+		//this.add(Box.createRigidArea(new Dimension(10, 0)));
 		sigOut();
-		
+		//this.add(Box.createRigidArea(new Dimension(10, 0)));
 		modifyUser();
 		
-		arribaPanel.add(botonesArriba);
+		
 		//
 		//
 		
@@ -80,13 +82,13 @@ public class ProductsList extends JDialog implements ActionListener{
 		
 		
 		//Para los botones de ADD y remove
-		JPanel abajoPanel = new JPanel(new BorderLayout());
+		JPanel abajoPanel = new JPanel();
 		JPanel buttonPanel = createButtonPanel();
-		abajoPanel.add(buttonPanel,BorderLayout.CENTER);
+		abajoPanel.add(buttonPanel);
 		
-		mainPanel.add(arribaPanel, BorderLayout.PAGE_START);
-		mainPanel.add(tablaMedio, BorderLayout.CENTER);
-		mainPanel.add(abajoPanel,BorderLayout.PAGE_END);
+		mainPanel.add(arribaPanel);
+		mainPanel.add(tablaMedio);
+		mainPanel.add(abajoPanel);
 		
 		/*
 		for(int i = 0; i < 30; ++i) {
@@ -104,6 +106,7 @@ public class ProductsList extends JDialog implements ActionListener{
 			@Override
 			public void windowClosing(WindowEvent e) {
 				quit();
+				
 			}
 
 			@Override
@@ -124,7 +127,7 @@ public class ProductsList extends JDialog implements ActionListener{
 			public void windowDeactivated(WindowEvent e) {}
 
         });
-		
+		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(false);
@@ -188,7 +191,7 @@ public class ProductsList extends JDialog implements ActionListener{
 			}
 		});
 		sigOut.setToolTipText("Cerrar sesion");
-		this.botonesArriba.add(sigOut);
+		this.arribaPanel.add(sigOut,BorderLayout.NORTH);
 	}
 	
 	public void cesta(){
@@ -205,7 +208,7 @@ public class ProductsList extends JDialog implements ActionListener{
 					}
 				});
 				cestaC.setToolTipText("Cesta compra");
-				this.botonesArriba.add(cestaC);
+				this.arribaPanel.add(cestaC,BorderLayout.NORTH);
 		
 	}
 	
@@ -228,7 +231,7 @@ public class ProductsList extends JDialog implements ActionListener{
 			}
 		});
 		modify.setToolTipText("Modifica datos usuario");
-		this.botonesArriba.add(modify);
+		this.arribaPanel.add(modify,BorderLayout.NORTH);
 	}
 	
 	 private void quit() {

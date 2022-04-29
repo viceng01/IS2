@@ -14,6 +14,10 @@ public class SellerInfo {
 	
 	private Catalogue catalogue;
 
+	public SellerInfo(Catalogue c, String rfc) {
+		catalogue= c;
+		this.rfc = rfc;
+	}
 	
 	public void addProductToCatalogue(Product p) {
 		catalogue.addProduct(p, 1);
@@ -23,13 +27,6 @@ public class SellerInfo {
 	}
 	public Collection<ProductCollection> getAllProductCollections() {
 		return catalogue.getAllProductCollections();
-	}
-	
-	public SellerInfo() {
-		catalogue= new Catalogue();
-	}
-	public SellerInfo(String rfc) {
-		this.rfc = rfc;
 	}
 
 	public String getRfc() {

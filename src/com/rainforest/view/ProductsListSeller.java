@@ -23,7 +23,11 @@ import javax.swing.JPanel;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.ImageIcon;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.rainforest.model.user.User;
 
@@ -39,6 +43,7 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 	private JButton modify;
 
 	private JPanel botonesArriba;
+	private JPanel tablaMedio ;
 	
 	private MainWindow mw;
 	private ControlPanel cp;
@@ -53,10 +58,10 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 	}
 
 	private void initGUI( ) {
-		setTitle("User data");
+		setTitle("Seller interface");
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		//setLayout(new GridLayout(0, 4));
-		
+		mainPanel.setPreferredSize(new Dimension(500,200));
 		//
 		//
 		JPanel arribaPanel = new JPanel(new FlowLayout (FlowLayout.LEFT));
@@ -78,8 +83,9 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 		//
 		
 		//Para meter los productos
-		JPanel tablaMedio = new JPanel(new GridLayout(0, 4));
-		
+		tablaMedio = new JPanel(new FlowLayout());
+		tablaMedio.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.gray), "Products",
+				TitledBorder.LEFT, TitledBorder.TOP));
 		
 		//Para los botones de ADD y remove
 		JPanel abajoPanel = new JPanel(new BorderLayout());
@@ -102,6 +108,7 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 
 			@Override
 			public void windowOpened(WindowEvent e) {
+				addProducts();
 				// TODO Auto-generated method stub
 				
 			}
@@ -147,12 +154,39 @@ public class ProductsListSeller extends JDialog implements ActionListener{
            
 
         });
-		
+		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(false);
 	}
 
+
+	private void addProducts() {
+		JPanel panel = new JPanel(new FlowLayout());
+		panel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+		panel.setLayout(new BorderLayout());
+		if (u!= null) {
+		JSONArray ja = mw.getProducts(u.getUserInfo().getUserID());
+		for (int i = 0; i < ja.length(); i++) {
+			JSONObject jo = ja.getJSONObject(i);
+			JSONObject p = jo.getJSONObject("product");
+			JLabel name = new JLabel("n-" + p.getString("name"));
+			JLabel desc = new JLabel(p.getString("description"));
+			JLabel price = new JLabel("p-" + String.valueOf(p.getFloat("price")));
+			JLabel amount = new JLabel("u-" + String.valueOf(jo.getInt("amount")));
+			
+			panel.add(name,BorderLayout.NORTH);
+			panel.setToolTipText(desc.getText());
+			panel.add(price,BorderLayout.CENTER);
+			panel.add(amount,BorderLayout.SOUTH);
+			tablaMedio.add(panel);
+			
+		}
+		}
+		
+		
+		
+	}
 
 	private JPanel createButtonPanel(){	
 		JPanel buttonPanel = new JPanel();

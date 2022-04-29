@@ -8,7 +8,23 @@
          "dni": "X4356234W",
          "RFC": "",
          "username": "d",
-         "direction": "calle VII, 4"
+         "direction": "calle VII, 4",
+	   "products": [
+		{
+	   		"GUID": "",
+			"name": "Patinete",
+			"description": "Sirve para ir de un lado a otro :)",
+			"price": "40",
+			"amount": "1000"
+	   	},
+		{
+			"GUID": "",
+			"name": "PlayStation",
+			"description": "Sirve para viciarse",
+			"price": "300",
+			"amount": 2000
+		}
+	   ]
       },
       "type": "seller"
    },

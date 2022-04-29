@@ -1,6 +1,7 @@
 package com.rainforest.model.product;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.rainforest.core.GUID;
@@ -8,6 +9,7 @@ import com.rainforest.core.GUID;
 public class Catalogue {
 	private Map<GUID, ProductCollection> products;
 
+	
 	public Collection<ProductCollection> getAllProductCollections() {
 		return products.values();
 	}
@@ -19,9 +21,11 @@ public class Catalogue {
 	public void addProduct(Product p, int amount) throws IllegalArgumentException {
 		if(amount <= 0)
 			throw new IllegalArgumentException();
+		if (products== null)
+			products = new HashMap<GUID, ProductCollection>();
 		
 		ProductCollection newCtx = new ProductCollection(p, amount);
-		ProductCollection previousCtx = products.putIfAbsent(p.getGUID(), newCtx);
+		ProductCollection previousCtx = products.put(p.getGUID(), newCtx);
 
 		int prevNumProducts = 0;
 

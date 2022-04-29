@@ -23,7 +23,10 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 
+import org.json.JSONArray;
+
 import com.rainforest.controller.Controller;
+import com.rainforest.core.GUID;
 import com.rainforest.factories.Builder;
 import com.rainforest.factories.BuilderBasedFactory;
 import com.rainforest.factories.BuyerBuilder;
@@ -53,8 +56,8 @@ public class MainWindow extends JFrame {
 	}
 	
 	//Patron 
-	public LoginResponse authenticate(String email, String password,String type) {
-		return controller.tryLogin(email, password,type);
+	public LoginResponse authenticate(String email, String password,String type, String user) {
+		return controller.tryLogin(email, password,type,user);
 	}
 	
 	public LoginResponse doesUserExist(String email,String pasw,String user) {
@@ -180,6 +183,10 @@ public class MainWindow extends JFrame {
 		return controller.tryModifyPass(pass,dni);
 	}
 
+	
+	public JSONArray getProducts(GUID guid){
+		return controller.getProducts(guid);
+	}
 
 
 
