@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.rainforest.core.GUID;
+import com.rainforest.model.product.Catalogue;
 import com.rainforest.model.user.User;
 import com.rainforest.model.user.UserInfo;
 import com.rainforest.model.user.buyer.Buyer;
@@ -65,11 +66,11 @@ public class RainforestModel {
 		return userSet.remove(user);
 	}
 
-	public LoginResponse tryLogin(String email, String password, String type) {
+	public LoginResponse tryLogin(String email, String password, String type, String user2) {
 		for (User user : userSet) {
 			UserInfo userInfo = user.getUserInfo();
 
-			if (userInfo.getEmail().equals(email)) {
+			if (userInfo.getEmail().equals(email) && userInfo.getUsername().equals(user2)) {
 				//Si esta bien seleccionada la categoria con el tipo de usuario
 				//se comprueba el resto de datos y sino es que no esta el usuario
 				if (type.equals(tipoUsuario(user)))
@@ -127,7 +128,7 @@ public class RainforestModel {
 	
 	public void addSeller(String email, String password, String user,String dir, String dni, int tel, String rfc) {
 		UserInfo ui = new UserInfo(new GUID(),email,password,user,dir,dni,tel);
-		SellerInfo si = new SellerInfo(rfc);
+		SellerInfo si = new SellerInfo(new Catalogue(),rfc);
 		
 		User u = new Seller(ui,si);
 		if (u!=null)
@@ -242,5 +243,17 @@ public class RainforestModel {
 		}else
 			ok = false;
 		return ok;
+	}
+
+	public JSONArray getProducts(GUID guid) {
+		JSONArray ja = new JSONArray();
+		for (User u : userSet) {
+			if (u.canSell()) {
+				JSONObject jo = u.getSellerInfo();
+				ja = jo.getJSONArray("products");
+			}
+			
+		}
+		return  ja;
 	}
 }

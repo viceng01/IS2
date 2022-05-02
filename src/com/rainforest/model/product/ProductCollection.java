@@ -22,4 +22,8 @@ public class ProductCollection {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
+	
+	public void setProduct(Product p) {
+		this.product = p;
+	}
 }

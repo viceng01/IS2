@@ -14,13 +14,10 @@ import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
@@ -98,7 +95,7 @@ public class ControlPanel extends JPanel {
         });
 
 		loginButton.addActionListener((ae) -> {
-			LoginResponse response = mainWindow.authenticate(emailTextField.getText(), passwordTextField.getText(),userTypeComboBox.getSelectedItem().toString());
+			LoginResponse response = mainWindow.authenticate(emailTextField.getText(), passwordTextField.getText(),userTypeComboBox.getSelectedItem().toString(),usernameTextField.getText());
 
 			//Si el usuario ha iniciado correctamente sesion se muestra la pantalla 
 			//correspondiente al usuario, pudiendo ser esta la del admin, buyer o seller
@@ -203,7 +200,7 @@ public class ControlPanel extends JPanel {
 
 			password = passwordTextField.getText();
 			username = usernameTextField.getText();
-			LoginResponse response = mainWindow.authenticate(emailTextField.getText(), passwordTextField.getText(),userTypeComboBox.getSelectedItem().toString());
+			LoginResponse response = mainWindow.authenticate(emailTextField.getText(), passwordTextField.getText(),userTypeComboBox.getSelectedItem().toString(),usernameTextField.getText());
 
 			//Si el usuario ha iniciado correctamente sesion se muestra la pantalla 
 			//correspondiente al usuario, pudiendo ser esta la del admin, buyer o seller

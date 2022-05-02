@@ -45,13 +45,17 @@ public class ModifySeller extends JDialog implements ActionListener{
 	private JTextField telTextField;
 	private JTextField emailTextField;
 	private JTextField userTextField;
+	private JTextField GUIDTextField;
+	private JTextField RFCTextField;
 	private char puntitos;
 	private JLabel dir = new JLabel("Direccion");//si
 	private JLabel dni= new JLabel("DNI");//no modificable
-	private JLabel tel = new JLabel("Telefono");//si
+	private JLabel tel = new JLabel("Telephone");//si
 	private JLabel email = new JLabel("Email");//si
 	private JLabel user= new JLabel("Username");//si
 	private JLabel pass = new JLabel("Password");//si
+	private JLabel GUID = new JLabel("GUID:");
+	private JLabel RFC = new JLabel ("RFC");
 	private JPasswordField passTextField;
 	private JCheckBox mostrar;
 	private JButton submit;
@@ -81,7 +85,7 @@ public class ModifySeller extends JDialog implements ActionListener{
 		//JPanel formPanel = createFormPanel();
 		//mainPanel.add(formPanel);
 		JPanel formPanel = new JPanel();
-		formPanel.setLayout(new GridLayout(7,7));
+		formPanel.setLayout(new GridLayout(9,9));
 		formPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.gray), "Datos del usuario",
 				TitledBorder.LEFT, TitledBorder.TOP));
 		
@@ -91,6 +95,8 @@ public class ModifySeller extends JDialog implements ActionListener{
 		emailTextField = new JTextField(15);
 		userTextField = new JTextField(15);
 		passTextField = new JPasswordField(15);
+		GUIDTextField = new JTextField(15);
+		RFCTextField = new JTextField(15);
 		
 		puntitos = passTextField.getEchoChar();
 		
@@ -106,6 +112,10 @@ public class ModifySeller extends JDialog implements ActionListener{
 		formPanel.add(userTextField);
 		formPanel.add(pass);
 		formPanel.add(passTextField);
+		formPanel.add(GUID);
+		formPanel.add(GUIDTextField);
+		formPanel.add(RFC);
+		formPanel.add(RFCTextField);
 		
 		mostrar = new JCheckBox("Mostrar contraseña");
         mostrar.setBounds(10,10,150,30);
@@ -123,12 +133,6 @@ public class ModifySeller extends JDialog implements ActionListener{
 		aux.add(exit);
         formPanel.add(aux);
         
-		/*
-		hGroup.addGroup(formLayout.createParallelGroup().addComponent(dir).addComponent(dni)
-				.addComponent(tel).addComponent(pass).addComponent(email).addComponent(user));
-		hGroup.addGroup(formLayout.createParallelGroup().addComponent(dirTextField).addComponent(dniTextField)
-				.addComponent(telTextField).addComponent(emailTextField).addComponent(userTextFiled).addComponent(dirTextField));
-*/
 		mainPanel.add(formPanel);
 		
 		setContentPane(mainPanel);
@@ -136,7 +140,21 @@ public class ModifySeller extends JDialog implements ActionListener{
 		this.addWindowListener(new WindowListener() {
 
 			@Override
-			public void windowOpened(WindowEvent e) {}
+			public void windowOpened(WindowEvent e) {
+				emailTextField.setText(u.getUserInfo().getEmail());
+				userTextField.setText(u.getUserInfo().getUsername());
+				dniTextField.setText(u.getUserInfo().getDNI());//bloquearlo
+				dniTextField.setEditable(false);
+				telTextField.setText(String.valueOf(u.getUserInfo().getTel()));
+				dirTextField.setText(u.getUserInfo().getDir());
+				GUIDTextField.setText(u.getUserInfo().getUserID().toString());
+				GUIDTextField.setEditable(false);
+				RFCTextField.setText(u.getSellerInfo().getString("RFC"));
+				RFCTextField.setEditable(false);
+				passTextField.setText(u.getUserInfo().getPassword());
+				
+				
+			}
 
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -158,7 +176,7 @@ public class ModifySeller extends JDialog implements ActionListener{
 			@Override
 			public void windowDeactivated(WindowEvent e) {}
         });
-		
+		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(false);
@@ -167,15 +185,6 @@ public class ModifySeller extends JDialog implements ActionListener{
 	
 	public int open(User u) {
 		this.u = u;
-		emailTextField.setText(u.getUserInfo().getEmail());
-		userTextField.setText(u.getUserInfo().getUsername());
-		dniTextField.setText(u.getUserInfo().getDNI());//bloquearlo
-		dniTextField.setEditable(false);
-		telTextField.setText(String.valueOf(u.getUserInfo().getTel()));
-		dirTextField.setText(u.getUserInfo().getDir());
-		//gui??
-		passTextField.setText(u.getUserInfo().getPassword());
-		
 		
 		setVisible(true);
 		return 1;

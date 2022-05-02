@@ -103,7 +103,7 @@ public class RegisterModalWindowS extends JDialog implements ActionListener{
 			@Override
 			public void windowDeactivated(WindowEvent e) {}
         });
-		
+		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(false);
