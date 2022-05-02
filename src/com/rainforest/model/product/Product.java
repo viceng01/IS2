@@ -1,8 +1,11 @@
 package com.rainforest.model.product;
 
-import com.rainforest.core.GUID;
+import org.json.JSONObject;
 
-public class Product {
+import com.rainforest.core.GUID;
+import com.rainforest.model.JSONSerializable;
+
+public class Product implements JSONSerializable{
 
 	private GUID guid;
 	private String name;
@@ -30,5 +33,15 @@ public class Product {
 
 	public float getPrice() {
 		return price;
+	}
+
+	@Override
+	public JSONObject serialize() {
+		JSONObject jo = new JSONObject();
+		jo.put("GUID", guid.toString());
+		jo.put("name", name);
+		jo.put("description", description);
+		jo.put("price", price);
+		return jo;
 	}
 }

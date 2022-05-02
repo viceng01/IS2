@@ -56,4 +56,9 @@ public class Catalogue {
 	public void removeProductCollection(Product p) {
 		products.remove(p.getGUID());
 	}
+
+	public void removeProductByName(GUID id) {
+		products.remove(id);
+		
+	}
 }

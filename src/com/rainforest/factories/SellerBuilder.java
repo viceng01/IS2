@@ -47,14 +47,14 @@ public class SellerBuilder extends Builder<User>{
 			JSONArray ja = data.getJSONArray("products");
 			for (int i = 0; i < ja.length(); i++) {
 				JSONObject jo = ja.getJSONObject(i);
-				
-				if (jo.getString("GUID").equals(""))
+				JSONObject jo1 = jo.getJSONObject("product");
+				if (jo1.getString("GUID").equals(""))
 					g= new GUID();
 				else 
-					g = new GUID(jo.getString("GUID"));
-				String nom = jo.getString("name");
-				String desc = jo.getString("description");
-				float price = jo.getFloat("price");
+					g = new GUID(jo1.getString("GUID"));
+				String nom = jo1.getString("name");
+				String desc = jo1.getString("description");
+				float price = jo1.getFloat("price");
 				int amount = jo.getInt("amount");
 				Product p = new Product(g,nom,desc,price);
 				

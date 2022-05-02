@@ -57,4 +57,12 @@ public class Buyer extends User {
 		return null;
 	}
 
+
+
+	@Override
+	public void removeProduct(GUID name) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

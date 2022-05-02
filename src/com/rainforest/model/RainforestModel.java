@@ -256,4 +256,20 @@ public class RainforestModel {
 		}
 		return  ja;
 	}
+
+	public void removeProduct(GUID name, String dni) {
+		
+		for (User u: userSet) {
+			if (u.canSell()) {
+				if (u.getUserInfo().getDNI().equals(dni)) {//Si encontramos el dni del comprador debemos
+					//buscar el prodcuto en su catalogo y eliminarlo
+					u.removeProduct(name);
+					
+					
+				}
+					
+			}
+		}
+		
+	}
 }

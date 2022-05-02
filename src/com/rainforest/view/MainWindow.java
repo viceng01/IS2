@@ -190,6 +190,13 @@ public class MainWindow extends JFrame {
 
 
 
+	public void removeProduct(GUID name, String dni) {
+		controller.removePrdouct(name,dni);
+		
+	}
+
+
+
 
 
 }

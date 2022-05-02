@@ -1,10 +1,14 @@
 package com.rainforest.model.user.seller;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.rainforest.core.GUID;
+import com.rainforest.model.product.Catalogue;
+import com.rainforest.model.product.Product;
 import com.rainforest.model.product.ProductCollection;
 import com.rainforest.model.user.User;
 import com.rainforest.model.user.UserInfo;
@@ -21,8 +25,6 @@ public class Seller extends User {
 	}
 
 	
-
-	
 	public JSONObject getSellerInfo() {
 		JSONObject salida = new JSONObject();
 		
@@ -36,13 +38,15 @@ public class Seller extends User {
 		salida.put("RFC", this.sellerInfo.getRfc());
 		Collection<ProductCollection> c = sellerInfo.getAllProductCollections();
 		
-		//JSONArray ja = new JSONArray();
+		JSONArray ja = new JSONArray();
 		
-		//ja.put(c);
-			
-		salida.put("products", c);
+		c.forEach((pc)->{
+			ja.put(pc.serialize());
+		});
 		
-		//salida.put("products", ja);
+		salida.put("products", ja);
+		
+		
 		return salida;
 	}
 	
@@ -63,6 +67,13 @@ public class Seller extends User {
 	public JSONObject getBuyerInfo() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public void removeProduct(GUID name) {
+		sellerInfo.removeProductByName(name);
+		
 	}
 
 
