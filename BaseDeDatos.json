@@ -9,22 +9,26 @@
          "RFC": "",
          "username": "d",
          "direction": "calle VII, 4",
-	   "products": [
-		{
-	   		"GUID": "",
-			"name": "Patinete",
-			"description": "Sirve para ir de un lado a otro :)",
-			"price": "40",
-			"amount": "1000"
-	   	},
-		{
-			"GUID": "",
-			"name": "PlayStation",
-			"description": "Sirve para viciarse",
-			"price": "300",
-			"amount": 2000
-		}
-	   ]
+         "products": [
+            {
+               "amount": 1000,
+               "product": {
+                  "price": 40,
+                  "name": "Patinete",
+                  "GUID": "",
+                  "description": "Sirve para ir de un lado a otro :)"
+               }
+            },
+            {
+               "amount": 2000,
+               "product": {
+                  "price": 300,
+                  "name": "PlayStation",
+                  "GUID": "",
+                  "description": "Sirve para viciarse"
+               }
+            }
+         ]
       },
       "type": "seller"
    },

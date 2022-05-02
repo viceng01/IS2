@@ -1,6 +1,10 @@
 package com.rainforest.model.product;
 
-public class ProductCollection {
+import org.json.JSONObject;
+
+import com.rainforest.model.JSONSerializable;
+
+public class ProductCollection implements JSONSerializable{
 
 	private Product product;
 	private int amount;
@@ -25,5 +29,13 @@ public class ProductCollection {
 	
 	public void setProduct(Product p) {
 		this.product = p;
+	}
+
+	@Override
+	public JSONObject serialize() {
+		JSONObject jo = new JSONObject();
+		jo.put("amount", amount);
+		jo.put("product",product.serialize());
+		return jo;
 	}
 }

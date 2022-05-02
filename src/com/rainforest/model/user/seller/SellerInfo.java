@@ -2,6 +2,7 @@ package com.rainforest.model.user.seller;
 
 import java.util.Collection;
 
+import com.rainforest.core.GUID;
 import com.rainforest.model.product.Catalogue;
 //import com.rainforest.model.product.Catalogue;
 import com.rainforest.model.product.Product;
@@ -19,6 +20,10 @@ public class SellerInfo {
 		this.rfc = rfc;
 	}
 	
+	public void removeProductByName(GUID name) {
+		catalogue.removeProductByName(name);
+	}
+	
 	public void addProductToCatalogue(Product p) {
 		catalogue.addProduct(p, 1);
 	}
@@ -32,7 +37,10 @@ public class SellerInfo {
 	public String getRfc() {
 		return rfc;
 	}
-
+	
+	public Catalogue getCatalogue() {
+		return this.catalogue;
+	}
 /*
 	
 	*/

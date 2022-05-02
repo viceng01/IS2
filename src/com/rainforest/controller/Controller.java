@@ -167,6 +167,12 @@ public class Controller {
 	}
 
 
+	public void removePrdouct(GUID name, String dni) {
+		// TODO Auto-generated method stub
+		model.removeProduct(name,dni);
+	}
+
+
 
 	
 

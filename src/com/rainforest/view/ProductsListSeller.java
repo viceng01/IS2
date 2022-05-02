@@ -14,12 +14,17 @@ import java.awt.event.WindowListener;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.ImageIcon;
@@ -29,6 +34,7 @@ import javax.swing.border.TitledBorder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.rainforest.core.GUID;
 import com.rainforest.model.user.User;
 
 public class ProductsListSeller extends JDialog implements ActionListener{
@@ -37,6 +43,7 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 	private int option;
 	private JButton addButton;
 	private JButton removeButton;
+	private JButton modifyButton;
 	protected JLabel direccion;
 
 	private JButton sigOut;
@@ -49,6 +56,9 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 	private ControlPanel cp;
 	private ModifySeller ms;
 	private User u;
+	
+	private DefaultListModel model;
+	private JList list;
 	
 	public ProductsListSeller(MainWindow mw, ControlPanel cp) {
 		this.mw = mw;
@@ -108,7 +118,7 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 
 			@Override
 			public void windowOpened(WindowEvent e) {
-				addProducts();
+				
 				// TODO Auto-generated method stub
 				
 			}
@@ -141,6 +151,7 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 			@Override
 			public void windowActivated(WindowEvent e) {
 				direccion.setText("Direccion: " + u.getUserInfo().getDir());
+				addProducts();
 				// TODO Auto-generated method stub
 				
 			}
@@ -162,30 +173,57 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 
 
 	private void addProducts() {
-		JPanel panel = new JPanel(new FlowLayout());
-		panel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-		panel.setLayout(new BorderLayout());
+		model = new DefaultListModel();
 		if (u!= null) {
-		JSONArray ja = mw.getProducts(u.getUserInfo().getUserID());
-		for (int i = 0; i < ja.length(); i++) {
-			JSONObject jo = ja.getJSONObject(i);
-			JSONObject p = jo.getJSONObject("product");
-			JLabel name = new JLabel("n-" + p.getString("name"));
-			JLabel desc = new JLabel(p.getString("description"));
-			JLabel price = new JLabel("p-" + String.valueOf(p.getFloat("price")));
-			JLabel amount = new JLabel("u-" + String.valueOf(jo.getInt("amount")));
-			
-			panel.add(name,BorderLayout.NORTH);
-			panel.setToolTipText(desc.getText());
-			panel.add(price,BorderLayout.CENTER);
-			panel.add(amount,BorderLayout.SOUTH);
-			tablaMedio.add(panel);
-			
+			JSONArray ja = mw.getProducts(u.getUserInfo().getUserID());
+			for (int i = 0; i < ja.length(); i++) {
+				/*
+				JPanel panel = new JPanel(new FlowLayout());
+				panel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+				panel.setLayout(new BorderLayout());
+				*/
+				DefaultListModel aux = new DefaultListModel();
+				JSONObject jo = ja.getJSONObject(i);
+				JSONObject p = jo.getJSONObject("product");
+				/*
+				JLabel name = new JLabel("name: " + p.getString("name"));
+				JLabel desc = new JLabel(p.getString("description"));
+				JLabel price = new JLabel("price: " + String.valueOf(p.getFloat("price")));
+				JLabel amount = new JLabel("amount: " + String.valueOf(jo.getInt("amount")));
+				
+				panel.add(name,BorderLayout.NORTH);
+				panel.setToolTipText(desc.getText());
+				panel.add(price,BorderLayout.CENTER);
+				panel.add(amount,BorderLayout.SOUTH);
+				*/
+				String n = "name: " + p.getString("name");
+				
+				String pr = "price: " + String.valueOf(p.getFloat("price"));
+				String a = "amount: " + String.valueOf(jo.getInt("amount"));
+				//String id = p.getString("GUID");
+				aux.addElement(n);
+				aux.addElement(pr);
+				aux.addElement(a);
+				//aux.addElement(id);
+				
+	            model.addElement(aux);
+	            
+
+				
+				
+				
+			}
 		}
-		}
-		
-		
-		
+		list = new JList();
+		list.setModel(model);
+		list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        JScrollPane scroll1 = new JScrollPane(list);
+        scroll1.setViewportView(list);
+        JScrollBar scrollBar = scroll1.getVerticalScrollBar();
+        
+        
+        
+        tablaMedio.add(scroll1);
 	}
 
 	private JPanel createButtonPanel(){	
@@ -196,31 +234,55 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 		
 		addButton = new JButton("Add");
 		removeButton = new JButton("Remove");
+		modifyButton = new JButton ("Modify");
 
 		removeButton.setBackground(Color.white);
 		addButton.setBackground(Color.white);
+		modifyButton.setBackground(Color.white);
 		
 		buttonPanel.add(Box.createRigidArea(new Dimension(10, 0)));
 		
-		addButton.addActionListener(this);
-		removeButton.addActionListener(this);
+		addButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		
+		removeButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int aux [] = list.getSelectedIndices();
+				Object[] aux1 = list.getSelectedValues();
+				for (int j = 0; j < aux1.length ; j++) {
+					//String borrar = aux1.toString();
+					String[] borrar = aux1.toString().split("\\s+");
+					GUID g = new GUID(borrar[3]);
+					mw.removeProduct(g, u.getUserInfo().getDNI());
+				}
+				if (model.getSize() == aux.length)
+					model.removeAllElements();
+				else{
+					for (int i = 0; i < aux.length ; i++ ) {
+						model.remove(i);
+					}
+				}
+			}
+		});
+		addButton.setToolTipText("Add new product");
+		removeButton.setToolTipText("Remove selected product");
+		modifyButton.setToolTipText("Modify selected product");
 		buttonPanel.add(addButton);
 		buttonPanel.add(removeButton);
+		buttonPanel.add(modifyButton);
 
 		setVisible(false);
 		return buttonPanel;
 	
 	}
-	public void actionPerformed(ActionEvent e) {
-		
-		if(e.getSource() == "Add") {
-
-			showMessageDialog("Add successful");
-		}else if (e.getSource() == "Remove") {
-			showMessageDialog("Remove successful");
-		}
-	}
+	
 
 	public int open(User user) {
 		this.u = user;
@@ -288,5 +350,11 @@ public class ProductsListSeller extends JDialog implements ActionListener{
 	 public void setDir(String dir) {
 		 direccion.setText("Direccion: " + dir);
 	 }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
