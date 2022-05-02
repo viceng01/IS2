@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="swing" version="4">
+  <OBJECT>
+    <ID name="swing" mc="Standard.Package" uid="5f4dfc6a-e271-4fa3-bfaa-99a22e7c8413"/>
+    <PID name="javax" mc="Standard.Package" uid="f2815d7f-95ba-490a-882e-d9e44e3d2183"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[swing]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="JScrollPane" mc="Standard.Class" uid="2c06e8f8-d541-4253-904c-d08d922016fd"/>
+        <COMPID name="JButton" mc="Standard.Class" uid="4c34c3c9-e106-4036-aaed-18370f2a80b8"/>
+        <COMPID name="JFileChooser" mc="Standard.Class" uid="28ad74e9-42b9-4bd3-853d-cd2b5a03f62c"/>
+        <COMPID name="UIManager" mc="Standard.Class" uid="112665f6-dbac-4178-87a3-a234307584d3"/>
+        <COMPID name="JComboBox" mc="Standard.Class" uid="a62d538d-3746-4788-b456-e4b6e9d7e7b9"/>
+        <COMPID name="BoxLayout" mc="Standard.Class" uid="ff74688f-a0ed-4a01-aded-b039db1e31d9"/>
+        <COMPID name="Box" mc="Standard.Class" uid="f42b2820-32c8-44e5-84d1-e0f369d981a7"/>
+        <COMPID name="border" mc="Standard.Package" uid="034c757e-3448-4f39-9a90-11c6af656448"/>
+        <COMPID name="GroupLayout" mc="Standard.Class" uid="00a38b2b-33b5-416b-b664-6d96292c2813"/>
+        <COMPID name="UnsupportedLookAndFeelException" mc="Standard.Class" uid="9288e562-fff7-4dd1-b005-d519792f0d0d"/>
+        <COMPID name="JTextField" mc="Standard.Class" uid="f0aa9f53-5c48-46ff-ab88-1848e6e0265e"/>
+        <COMPID name="JOptionPane" mc="Standard.Class" uid="b5e53bc1-12a4-4531-95da-9665815dfeef"/>
+        <COMPID name="JFrame" mc="Standard.Class" uid="e547b6bc-18cf-43d0-9d91-281d14ed3952"/>
+        <COMPID name="JLabel" mc="Standard.Class" uid="e0edfacc-91bb-4d8a-b3fd-c39bd96b31e4"/>
+        <COMPID name="JMenuItem" mc="Standard.Class" uid="22629688-8e02-45f3-8a79-75c298249996"/>
+        <COMPID name="ImageIcon" mc="Standard.Class" uid="f3cbe111-f529-4c6f-8ae1-5fdcec2e49cb"/>
+        <COMPID name="JPanel" mc="Standard.Class" uid="7fbed679-91ba-4bda-bf61-f2f78c8af32c"/>
+        <COMPID name="BorderFactory" mc="Standard.Class" uid="5bfd4eac-bbb6-4233-b4d1-63680f71be8c"/>
+        <COMPID name="JMenuBar" mc="Standard.Class" uid="78ec1018-3768-46a0-a377-350fd744d02a"/>
+        <COMPID name="JDialog" mc="Standard.Class" uid="a6018a1a-14eb-48f4-a926-31695453496a"/>
+        <COMPID name="JMenu" mc="Standard.Class" uid="9cc72407-8303-4abf-ae58-7e99c0ab4726"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+      <COMP relation="Tag">
+        <OBJECT>
+          <ID name="" mc="Infrastructure.TaggedValue" uid="66cf5a61-0586-4c92-91d9-1c355fd9ee94"/>
+          <ATTRIBUTES>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Definition">
+              <FOREIGNID name="JavaExtern" mc="Infrastructure.TagType" uid="003800a8-0000-0197-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

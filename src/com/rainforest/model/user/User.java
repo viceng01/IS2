@@ -22,6 +22,9 @@ public abstract class User implements IUserPrivileges {
 		jo1.put("email", userInfo.getEmail()); 
 		jo1.put("password", userInfo.getPassword());
 		jo1.put("username", userInfo.getUsername());
+		jo1.put("dni",userInfo.getDNI());
+		jo1.put("tel",userInfo.getTel());
+		jo1.put("direction",userInfo.getDir());
 		return jo1;
 	}
 }

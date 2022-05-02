@@ -57,8 +57,8 @@ public class MainWindow extends JFrame {
 		return controller.tryLogin(email, password,type);
 	}
 	
-	public LoginResponse doesUserExist(String email, String password,String user) {
-		return controller.doesUserExist(email,password,user);
+	public LoginResponse doesUserExist(String email,String pasw,String user) {
+		return controller.doesUserExist(email,pasw,user);
 	}
 	
 	public boolean doesRegisterBuyerExist(String dni,int tel) {
@@ -145,5 +145,44 @@ public class MainWindow extends JFrame {
 	private void saveChanges() {
 		controller.saveChanges();
 	}
+
+
+
+	public boolean tryModifyUser(String user, String dni) {
+		// TODO Auto-generated method stub
+		return controller.tryModifyUser(user,dni);
+	}
+
+
+
+	public boolean tryModifyTel(int tel, String dni) {
+		// TODO Auto-generated method stub
+		return controller.tryModifyTel(tel, dni);
+	}
+
+
+
+	public boolean tryModifyEmail(String email, String dni) {
+		// TODO Auto-generated method stub
+		return controller.tryModifyEmail(email, dni);
+	}
+
+
+
+	public boolean tryModifyDir(String dir, String dni) {
+		// TODO Auto-generated method stub
+		return controller.tryModifyDir(dir, dni);	}
+
+
+
+	public boolean tryModifyPass(String pass, String dni) {
+		// TODO Auto-generated method stub
+		return controller.tryModifyPass(pass,dni);
+	}
+
+
+
+
+
 
 }

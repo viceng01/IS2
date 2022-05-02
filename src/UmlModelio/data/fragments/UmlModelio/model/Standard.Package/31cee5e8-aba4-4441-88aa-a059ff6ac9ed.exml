@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="io" version="4">
+  <OBJECT>
+    <ID name="io" mc="Standard.Package" uid="31cee5e8-aba4-4441-88aa-a059ff6ac9ed"/>
+    <PID name="java" mc="Standard.Package" uid="17ccff2e-4990-473b-a4de-6e0e073b0388"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[io]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="FileNotFoundException" mc="Standard.Class" uid="3876d0b8-4635-44e6-b190-e4cbf8be87a4"/>
+        <COMPID name="OutputStream" mc="Standard.Class" uid="a1a3e585-b7fd-48f6-b68e-1e2367a65d39"/>
+        <COMPID name="FileInputStream" mc="Standard.Class" uid="a7fb15d4-deaa-4ae0-8198-574302dda0c4"/>
+        <COMPID name="IOException" mc="Standard.Class" uid="302c01a2-d8a3-4c6c-8a85-b1a17556a28a"/>
+        <COMPID name="InputStream" mc="Standard.Class" uid="ef524b76-ae08-43e4-9e3d-3b84c1ec475e"/>
+        <COMPID name="PrintStream" mc="Standard.Class" uid="765678b2-4355-408d-8a36-4dc887a8bb6f"/>
+        <COMPID name="FileOutputStream" mc="Standard.Class" uid="a62597a6-02e0-4653-b117-9019c366d3c4"/>
+        <COMPID name="File" mc="Standard.Class" uid="5729c3a1-9a9f-4560-b866-95ffb19920c4"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+      <COMP relation="Tag">
+        <OBJECT>
+          <ID name="" mc="Infrastructure.TaggedValue" uid="1d38ce18-9c70-4e3c-bf4a-0dac82158ddf"/>
+          <ATTRIBUTES>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Definition">
+              <FOREIGNID name="JavaExtern" mc="Infrastructure.TagType" uid="003800a8-0000-0197-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

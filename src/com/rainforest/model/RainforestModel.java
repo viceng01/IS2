@@ -53,7 +53,12 @@ public class RainforestModel {
 	 * @param user : The user to remove
 	 * @return <b>true</b> if the user was removed, <b>false</b> otherwise
 	 */
-	public boolean removeUser(User user) {
+	public boolean removeUser(String email, String password, String type) {
+		User user = null;
+		for (User u : userSet) {
+			if (u.getUserInfo().getEmail().equals(email))
+				user = u;
+		}
 		if (user == null) {
 			return false;
 		}
@@ -112,8 +117,8 @@ public class RainforestModel {
 	}
 
 	public void addBuyer(String email, String password, String user,String dir, String dni, int tel) {
-		UserInfo ui = new UserInfo(new GUID(),email,password,user);
-		BuyerInfo bi = new BuyerInfo(dir,dni,tel);
+		UserInfo ui = new UserInfo(new GUID(),email,password,user,dir,dni,tel);
+		BuyerInfo bi = new BuyerInfo();
 		
 		User u = new Buyer(ui,bi);
 		if (u!=null)
@@ -121,8 +126,8 @@ public class RainforestModel {
 	}
 	
 	public void addSeller(String email, String password, String user,String dir, String dni, int tel, String rfc) {
-		UserInfo ui = new UserInfo(new GUID(),email,password,user);
-		SellerInfo si = new SellerInfo(dir,dni,tel,rfc);
+		UserInfo ui = new UserInfo(new GUID(),email,password,user,dir,dni,tel);
+		SellerInfo si = new SellerInfo(rfc);
 		
 		User u = new Seller(ui,si);
 		if (u!=null)
@@ -151,4 +156,91 @@ public class RainforestModel {
 		return ja;
 	}
 
+	public User getUser(String text) {
+		User user = null;
+		for (User u: userSet) {
+			if (u.getUserInfo().getEmail().equals(text))
+				user = u;
+		}
+		
+		return user;
+	}
+
+
+	public boolean tryModifyUser(String user, String dni) {
+		boolean ok = true;
+		for (User u: userSet) {
+			if (u.getUserInfo().getUsername().equals(user)){//Si ya exite el usuario se pone a false para no modificar
+				ok = false;
+				break;
+			}else {
+				if (u.getUserInfo().getDNI().equals(dni))
+					u.getUserInfo().setUsername(user);
+			}	
+		}
+		return ok;
+	}
+
+	public boolean tryModifyTel(int tel, String dni) {
+		boolean ok = true;
+		for (User u: userSet) {
+			if (u.getUserInfo().getTel() == tel){//Si ya exite el usuario se pone a false para no modificar
+				ok = false;
+				break;
+			}else {
+				if (u.getUserInfo().getDNI().equals(dni)) 
+					u.getUserInfo().setTel(tel);
+				
+			}
+			
+		}
+		return ok;
+	}
+
+	public boolean tryModifyEmail(String email, String dni) {
+		boolean ok = true;
+		for (User u: userSet) {
+			if (u.getUserInfo().getEmail().equals(email)){//Si ya exite el usuario se pone a false para no modificar
+				ok = false;
+				break;
+			}else {
+				if (u.getUserInfo().getDNI().equals(dni)) 
+					u.getUserInfo().setEmail(email);
+				
+			}
+			
+		}
+		return ok;
+	}
+
+	public boolean tryModifyDir(String dir, String dni) {
+		boolean ok = true;
+		if (!dir.equals("")) {
+			for (User u: userSet) {
+				if (u.getUserInfo().getDNI().equals(dni) || ok) {
+					u.getUserInfo().setDir(dir);
+					break;
+				}
+				
+			}
+		}else
+			ok = false;
+		return ok;
+	}
+
+	
+	public boolean tryModifyPass(String pass, String dni) {
+		boolean ok = true;
+		if (!pass.equals("")) {
+			for (User u: userSet) {
+				if (u.getUserInfo().getDNI().equals(dni) || ok) {
+					u.getUserInfo().setPassword(pass);
+					break;
+				}
+				
+			}
+		}else
+			ok = false;
+		return ok;
+	}
 }

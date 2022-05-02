@@ -1,0 +1,91 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="view" version="4">
+  <OBJECT>
+    <ID name="view" mc="Standard.Package" uid="6a1b6da4-beec-408a-b956-523b1df08d5b"/>
+    <PID name="rainforest" mc="Standard.Package" uid="86593500-15fc-4a47-982c-5dddcb70d8f4"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[view]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="ControlPanel" mc="Standard.Class" uid="4af7ce6c-fd99-4fcc-abc3-88fee8f9abbd"/>
+        <OBJECT>
+          <ID name="LoginResponse" mc="Standard.Enumeration" uid="83744758-1f5f-49ab-bd21-f553e47164de"/>
+          <ATTRIBUTES>
+            <ATT name="IsElementary">true</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="IsLeaf">true</ATT>
+            <ATT name="IsRoot">false</ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="Name"><![CDATA[LoginResponse]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="Value">
+              <OBJECT>
+                <ID name="OK" mc="Standard.EnumerationLiteral" uid="144fd641-da29-417e-86f7-05c6c4bb3721"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[OK]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="UNKNOWN_USER" mc="Standard.EnumerationLiteral" uid="76933ebd-7305-4118-9a9f-550075fb6992"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[UNKNOWN_USER]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="INCORRECT_PASSWORD" mc="Standard.EnumerationLiteral" uid="62507cc2-b845-4d08-9556-06af31bb2bc3"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[INCORRECT_PASSWORD]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="EMPTY_DATA" mc="Standard.EnumerationLiteral" uid="77496456-2276-46ff-b824-0491a9d15e67"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[EMPTY_DATA]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="ALREADY_USED" mc="Standard.EnumerationLiteral" uid="83451be0-e323-477f-8945-309276395d98"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[ALREADY_USED]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <LINK relation="Extension">
+              <FOREIGNID name="JavaEnumeration" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0262-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <COMPID name="MainMenu" mc="Standard.Class" uid="7c36bb06-c6c7-4bc0-a6f0-9c3e81532c6f"/>
+        <COMPID name="MainWindow" mc="Standard.Class" uid="c329a6ec-8d88-4d4e-bbd9-624290bf1119"/>
+        <COMPID name="ProductButton" mc="Standard.Class" uid="868d40ae-7d78-411a-bfd8-4c0b9fb0b87d"/>
+        <COMPID name="ProductsList" mc="Standard.Class" uid="04aa9f15-ac04-4ef3-be7d-17dc4a00db65"/>
+        <COMPID name="ProductsListSeller" mc="Standard.Class" uid="472f61fc-9c50-467a-b6fb-c2fb2d7b929d"/>
+        <COMPID name="RegisterModalWindowB" mc="Standard.Class" uid="60357b3f-1202-4b5e-9a2d-972b29675aea"/>
+        <COMPID name="RegisterModalWindowS" mc="Standard.Class" uid="23a366de-fa3b-4ddb-8995-1c92f8ea8fe7"/>
+        <COMPID name="toolbar" mc="Standard.Package" uid="7af4f77d-b0aa-44f8-b5db-f336f94f908a"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

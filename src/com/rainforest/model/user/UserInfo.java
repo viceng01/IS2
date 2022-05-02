@@ -7,13 +7,19 @@ public class UserInfo {
 	private String email;
 	private String password;
 	private String username;
+	private String dir;
+	private String DNI;
+	private int tel;
 	
 	
-	public UserInfo(GUID userID, String email, String password, String username) {
+	public UserInfo(GUID userID, String email, String password, String username, String dir, String DNI, int telefono) {
 		this.userID = userID;
 		this.email = email;
 		this.password = password;
 		this.username = username;
+		this.dir = dir;
+		this.DNI = DNI;
+		this.tel = telefono;
 	}
 	
 	public UserInfo(UserInfo u) {
@@ -45,4 +51,46 @@ public class UserInfo {
 	public String getUsername() {
 		return username;
 	}
+
+	public String getDir() {
+		return dir;
+	}
+
+	public String getDNI() {
+		return DNI;
+	}
+
+	public int getTel() {
+		return tel;
+	}
+
+	public void setUserID(GUID userID) {
+		this.userID = userID;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setDir(String dir) {
+		this.dir = dir;
+	}
+
+	public void setDNI(String dNI) {
+		DNI = dNI;
+	}
+
+	public void setTel(int tel) {
+		this.tel = tel;
+	}
+	
+	
 }

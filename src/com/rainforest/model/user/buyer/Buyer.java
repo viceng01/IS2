@@ -36,9 +36,9 @@ public class Buyer extends User {
 		salida.put("password", u.getPassword());
 		salida.put("username", u.getUsername());
 		salida.put("GUID", u.getUserID());
-		salida.put("direction",this.buyerInfo.getDir());
-		salida.put("tel",Integer.toString(this.buyerInfo.getTel()));
-		salida.put("dni",this.buyerInfo.getDNI());
+		salida.put("direction",u.getDir());
+		salida.put("tel",Integer.toString(u.getTel()));
+		salida.put("dni",u.getDNI());
 		return salida;
 	}
 	
