@@ -1,28 +1,27 @@
 package com.rainforest.model.user.buyer;
 
+import org.json.JSONObject;
 
-public class BuyerInfo{
+import com.rainforest.model.JSONSerializable;
 
-	private String dir;
+public class BuyerInfo implements JSONSerializable {
+
 	private String DNI;
-	private int tel;
-	
-	public BuyerInfo() {
-	}
 
-
-	public String getDir() {
-		return dir;
+	public BuyerInfo(String dNI) {
+		DNI = dNI;
 	}
 
 	public String getDNI() {
 		return DNI;
 	}
 
-	public int getTel() {
-		return tel;
+	@Override
+	public JSONObject serialize() {
+		JSONObject jo = new JSONObject();
+
+		jo.put("DNI", DNI);
+
+		return jo;
 	}
-
-
-	
 }

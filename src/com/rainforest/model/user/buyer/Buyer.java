@@ -1,6 +1,5 @@
 package com.rainforest.model.user.buyer;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.rainforest.core.GUID;
@@ -10,59 +9,44 @@ import com.rainforest.model.user.UserInfo;
 public class Buyer extends User {
 
 	private BuyerInfo buyerInfo;
-	private UserInfo u;
 
 	public Buyer(UserInfo userInfo, BuyerInfo buyerInfo) {
 		super(userInfo);
-		this.u = userInfo;
 		this.buyerInfo = buyerInfo;
 	}
 
-	
-	
 	@Override
 	public boolean canBuy() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean canSell() {
 		return false;
 	}
-	
-	public JSONObject getBuyerInfo() {
-		JSONObject salida = new JSONObject();
-		salida.put("email", u.getEmail());
-		salida.put("password", u.getPassword());
-		salida.put("username", u.getUsername());
-		salida.put("GUID", u.getUserID());
-		salida.put("direction",u.getDir());
-		salida.put("tel",Integer.toString(u.getTel()));
-		salida.put("dni",u.getDNI());
-		return salida;
+
+	public BuyerInfo getBuyerInfo() {
+		return buyerInfo;
 	}
-	
+
+	@Override
+	public JSONObject serialize() {
+		JSONObject jo = super.serialize();
+
+		jo.put("buyer_info", buyerInfo.serialize());
+
+		return jo;
+	}
 
 	@Override
 	public int hashCode() {
 		return buyerInfo.hashCode();
 	}
 
-
-
-	
-	@Override
-	public JSONObject getSellerInfo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
 	@Override
 	public void removeProduct(GUID name) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,67 +22,73 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import org.json.JSONObject;
 
-public class RegisterModalWindowS extends JDialog implements ActionListener{
+public class SellerRegisterModalWindow extends JDialog {
 
-	private static final String USER_TYPE_BUYER = "Buyer";
-	private static final String USER_TYPE_SELLER = "Seller";
-			
+	private static final long serialVersionUID = 1L;
 
-	private JTextField dirTextField;
+	private JTextField addressTextField;
 	private JTextField dniTextField;
-	private JTextField telTextField;
+	private JTextField telephoneTextField;
 	private JTextField rfcTextField;
+	private JTextField cifTextField;
+
 	private JButton submit;
-	private MainWindow mw;
+
+	private MainWindow mainWindow;
 	private ControlPanel cp;
+
 	private int option;
+
 	private JSONObject jo;
 	private boolean add;
 
-	public RegisterModalWindowS(MainWindow mainWindow,ControlPanel cp) {
-		mw = mainWindow;
+	public SellerRegisterModalWindow(MainWindow mainWindow, ControlPanel cp) {
+		super((Frame) null, "Register Buyer");
+
+		this.mainWindow = mainWindow;
 		this.cp = cp;
+
 		initGUI(mainWindow);
 	}
-	
+
 	private void initGUI(MainWindow mainWindow) {
-		setTitle("Register Buyer");
 
 		JPanel mainPanel = new JPanel(new BorderLayout());
-		
+
 		JPanel formPanel = createFormPanel();
-		
-		
+
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
-		
+
 		submit = new JButton("Submit");
 		submit.setToolTipText("Cerrar sesion");
 		formPanel.add(submit);
-		
+
 		submit.setBackground(Color.white);
-		
+
 		buttonPanel.add(Box.createRigidArea(new Dimension(10, 0)));
-		
-		submit.addActionListener(this);
-		
+
+		submit.addActionListener((ae) -> {
+			register();
+		});
+
 		buttonPanel.add(submit);
 		mainPanel.add(formPanel, BorderLayout.CENTER);
-		mainPanel.add(buttonPanel,BorderLayout.PAGE_END);
-		
+		mainPanel.add(buttonPanel, BorderLayout.PAGE_END);
+
 		setContentPane(mainPanel);
-		
+
 		this.addWindowListener(new WindowListener() {
 
 			@Override
-			public void windowOpened(WindowEvent e) {}
+			public void windowOpened(WindowEvent e) {
+			}
 
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -89,26 +96,30 @@ public class RegisterModalWindowS extends JDialog implements ActionListener{
 			}
 
 			@Override
-			public void windowClosed(WindowEvent e) {}
+			public void windowClosed(WindowEvent e) {
+			}
 
 			@Override
-			public void windowIconified(WindowEvent e) {}
+			public void windowIconified(WindowEvent e) {
+			}
 
 			@Override
-			public void windowDeiconified(WindowEvent e) {}
+			public void windowDeiconified(WindowEvent e) {
+			}
 
 			@Override
-			public void windowActivated(WindowEvent e) {}
+			public void windowActivated(WindowEvent e) {
+			}
 
 			@Override
-			public void windowDeactivated(WindowEvent e) {}
-        });
+			public void windowDeactivated(WindowEvent e) {
+			}
+		});
 		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(false);
 	}
-
 
 	private JPanel createFormPanel() {
 		JPanel formPanel = new JPanel();
@@ -130,28 +141,28 @@ public class RegisterModalWindowS extends JDialog implements ActionListener{
 		SequentialGroup vGroup = formLayout.createSequentialGroup();
 
 		JLabel dir = new JLabel("Direccion");
-		JLabel dni= new JLabel("DNI");
+		JLabel dni = new JLabel("DNI");
 		JLabel tel = new JLabel("Telefono");
 		JLabel rfc = new JLabel("RFC vendedor");
 
-		dirTextField = new JTextField(15);
+		addressTextField = new JTextField(15);
 		dniTextField = new JTextField(15);
-		telTextField = new JTextField(15);
+		telephoneTextField = new JTextField(15);
 		rfcTextField = new JTextField(15);
 
-		hGroup.addGroup(formLayout.createParallelGroup().addComponent(dir).addComponent(dni)
-				.addComponent(tel).addComponent(rfc));
-		hGroup.addGroup(formLayout.createParallelGroup().addComponent(dirTextField).addComponent(dniTextField)
-				.addComponent(telTextField).addComponent(rfcTextField));
+		hGroup.addGroup(formLayout.createParallelGroup().addComponent(dir).addComponent(dni).addComponent(tel)
+				.addComponent(rfc));
+		hGroup.addGroup(formLayout.createParallelGroup().addComponent(addressTextField).addComponent(dniTextField)
+				.addComponent(telephoneTextField).addComponent(rfcTextField));
 
-		vGroup.addGroup(formLayout.createParallelGroup(Alignment.BASELINE).addComponent(dir)
-				.addComponent(dirTextField));
-		vGroup.addGroup(formLayout.createParallelGroup(Alignment.BASELINE).addComponent(dni)
-				.addComponent(dniTextField));
-		vGroup.addGroup(formLayout.createParallelGroup(Alignment.BASELINE).addComponent(tel)
-				.addComponent(telTextField));
-		vGroup.addGroup(formLayout.createParallelGroup(Alignment.BASELINE).addComponent(rfc)
-				.addComponent(rfcTextField));
+		vGroup.addGroup(
+				formLayout.createParallelGroup(Alignment.BASELINE).addComponent(dir).addComponent(addressTextField));
+		vGroup.addGroup(
+				formLayout.createParallelGroup(Alignment.BASELINE).addComponent(dni).addComponent(dniTextField));
+		vGroup.addGroup(
+				formLayout.createParallelGroup(Alignment.BASELINE).addComponent(tel).addComponent(telephoneTextField));
+		vGroup.addGroup(
+				formLayout.createParallelGroup(Alignment.BASELINE).addComponent(rfc).addComponent(rfcTextField));
 
 		formLayout.setHorizontalGroup(hGroup);
 		formLayout.setVerticalGroup(vGroup);
@@ -159,62 +170,63 @@ public class RegisterModalWindowS extends JDialog implements ActionListener{
 		return formPanel;
 	}
 
-	
 	public int open() {
 		setVisible(true);
 		return 1;
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void register() {
 		add = false;
-		if (dirTextField.getText().equals("") || telTextField.getText().equals("") || dniTextField.getText().equals(""))
+		
+		if (addressTextField.getText().equals("") || telephoneTextField.getText().equals("")
+				|| dniTextField.getText().equals(""))
 			showErrorDialog("Some fields empty");
 		else {
-			int aux = Integer.parseInt(telTextField.getText());
-			if (mw.doesRegisterBuyerExist(dniTextField.getText(), aux)) 
+			int aux = Integer.parseInt(telephoneTextField.getText());
+			if (mainWindow.doesRegisterBuyerExist(dniTextField.getText(), aux))
 				showErrorDialog("Data already used");
 			else {
 				add = true;
 				setVisible(false);
-				cp.addSeller(Integer.parseInt(telTextField.getText()),dirTextField.getText(),dniTextField.getText(),rfcTextField.getText());
+				cp.addSeller(Integer.parseInt(telephoneTextField.getText()), addressTextField.getText(),
+						dniTextField.getText(), rfcTextField.getText());
 				showMessageDialog("Succesful register!");
-				
-				dirTextField.setText(null);
-				dniTextField.setText(null);
-				telTextField.setText(null);
-				
-	
-				mw.setVisible(true);
-				cp.setVisible(true);
-				
-			}
-		}		
-		
-		
-	}
-	
-	 private void quit() {
-	    	option = JOptionPane.showOptionDialog(this, "Are you sure you want to leave?", "Exit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, 1); // el 1 es para q x defecto la opcion senalada sea NO
-	        if (option == 0) {
-	        	setVisible(false);
 
-				mw.setVisible(true);
+				addressTextField.setText(null);
+				dniTextField.setText(null);
+				telephoneTextField.setText(null);
+
+				mainWindow.setVisible(true);
 				cp.setVisible(true);
-				
-	        }else {
-	        	setVisible(true);
-	        }
+
+			}
 		}
-	 
-	 private void showErrorDialog(String message) {
-			JOptionPane.showConfirmDialog(null, message, "Register error", JOptionPane.DEFAULT_OPTION,
-					JOptionPane.ERROR_MESSAGE);
+
+	}
+
+	private void quit() {
+		option = JOptionPane.showOptionDialog(this, "Are you sure you want to leave?", "Exit",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, 1); // el 1 es para q x defecto la
+																							// opcion senalada sea NO
+		if (option == 0) {
+			setVisible(false);
+
+			mainWindow.setVisible(true);
+			cp.setVisible(true);
+
+		} else {
+			setVisible(true);
 		}
-	 
-	 private void showMessageDialog(String message) {
-			JOptionPane.showConfirmDialog(null, message, "Registration", JOptionPane.DEFAULT_OPTION,
-					JOptionPane.INFORMATION_MESSAGE);
-		}
-	 
+	}
+
+	private void showErrorDialog(String message) {
+		JOptionPane.showConfirmDialog(null, message, "Register error", JOptionPane.DEFAULT_OPTION,
+				JOptionPane.ERROR_MESSAGE);
+	}
+
+	private void showMessageDialog(String message) {
+		JOptionPane.showConfirmDialog(null, message, "Registration", JOptionPane.DEFAULT_OPTION,
+				JOptionPane.INFORMATION_MESSAGE);
+	}
+
 }

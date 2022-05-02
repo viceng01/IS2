@@ -23,7 +23,7 @@ import com.rainforest.model.user.User;
 
 import javax.swing.ImageIcon;
 
-public class ProductsList extends JDialog implements ActionListener{
+public class ProductsListBuyer extends JDialog implements ActionListener{
 
 	protected int _status;
 	private JButton addButton;
@@ -43,7 +43,7 @@ public class ProductsList extends JDialog implements ActionListener{
 	
 	private User u;
 	
-	public ProductsList(MainWindow mw, ControlPanel cp) {
+	public ProductsListBuyer(MainWindow mw, ControlPanel cp) {
 		this.mw = mw;
 		this.cp = cp;
 		mb = new ModifyBuyer(mw,cp,this);

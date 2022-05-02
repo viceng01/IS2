@@ -1,27 +1,27 @@
 package com.rainforest.model.user;
 
-import com.rainforest.core.GUID;
+import org.json.JSONObject;
 
-public class UserInfo {
+import com.rainforest.core.GUID;
+import com.rainforest.model.JSONSerializable;
+
+public class UserInfo implements JSONSerializable {
 	private GUID userID;
 	private String email;
 	private String password;
 	private String username;
 	private String dir;
-	private String DNI;
 	private int tel;
-	
-	
-	public UserInfo(GUID userID, String email, String password, String username, String dir, String DNI, int telefono) {
+
+	public UserInfo(GUID userID, String email, String password, String username, String dir, int telefono) {
 		this.userID = userID;
 		this.email = email;
 		this.password = password;
 		this.username = username;
 		this.dir = dir;
-		this.DNI = DNI;
 		this.tel = telefono;
 	}
-	
+
 	public UserInfo(UserInfo u) {
 		this.userID = u.userID;
 		this.email = u.email;
@@ -39,7 +39,7 @@ public class UserInfo {
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
@@ -47,7 +47,7 @@ public class UserInfo {
 	public GUID getUserID() {
 		return userID;
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}
@@ -56,11 +56,7 @@ public class UserInfo {
 		return dir;
 	}
 
-	public String getDNI() {
-		return DNI;
-	}
-
-	public int getTel() {
+	public int getTelephone() {
 		return tel;
 	}
 
@@ -80,17 +76,39 @@ public class UserInfo {
 		this.username = username;
 	}
 
-	public void setDir(String dir) {
+	public void setAddress(String dir) {
 		this.dir = dir;
 	}
 
-	public void setDNI(String dNI) {
-		DNI = dNI;
-	}
-
-	public void setTel(int tel) {
+	public void setTelephone(int tel) {
 		this.tel = tel;
 	}
-	
-	
+
+	@Override
+	public JSONObject serialize() {
+		JSONObject jo = new JSONObject();
+
+		jo.put("GUID", userID.toString());
+		jo.put("email", email);
+		jo.put("password", password);
+		jo.put("username", username);
+		jo.put("dir", dir);
+		jo.put("tel", tel);
+
+		return jo;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof UserInfo))
+			return false;
+
+		UserInfo other = (UserInfo) obj;
+
+		if (other.email.equals(email) || other.username.equals(username) || other.userID.equals(userID))
+			return true;
+
+		return super.equals(obj);
+	}
+
 }

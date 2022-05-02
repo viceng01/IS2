@@ -4,12 +4,15 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.rainforest.core.GUID;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-public class Catalogue {
+import com.rainforest.core.GUID;
+import com.rainforest.model.JSONSerializable;
+
+public class Catalogue implements JSONSerializable {
 	private Map<GUID, ProductCollection> products;
 
-	
 	public Collection<ProductCollection> getAllProductCollections() {
 		return products.values();
 	}
@@ -19,11 +22,11 @@ public class Catalogue {
 	}
 
 	public void addProduct(Product p, int amount) throws IllegalArgumentException {
-		if(amount <= 0)
+		if (amount <= 0)
 			throw new IllegalArgumentException();
-		if (products== null)
+		if (products == null)
 			products = new HashMap<GUID, ProductCollection>();
-		
+
 		ProductCollection newCtx = new ProductCollection(p, amount);
 		ProductCollection previousCtx = products.put(p.getGUID(), newCtx);
 
@@ -36,9 +39,9 @@ public class Catalogue {
 	}
 
 	public void removeProduct(Product p, int amount) throws IllegalArgumentException {
-		if(amount <= 0)
+		if (amount <= 0)
 			throw new IllegalArgumentException();
-		
+
 		GUID productGUID = p.getGUID();
 		ProductCollection ctx = products.getOrDefault(productGUID, null);
 
@@ -46,10 +49,10 @@ public class Catalogue {
 			return;
 
 		int remainder = ctx.getAmount() - amount;
-		
+
 		ctx.setAmount(remainder);
-		
-		if(remainder <= 0)
+
+		if (remainder <= 0)
 			products.remove(productGUID);
 	}
 
@@ -59,6 +62,20 @@ public class Catalogue {
 
 	public void removeProductByName(GUID id) {
 		products.remove(id);
-		
+
+	}
+
+	@Override
+	public JSONObject serialize() {
+		JSONObject jo = new JSONObject();
+		JSONArray ja = new JSONArray();
+
+		products.values().forEach((pc) -> {
+			ja.put(pc.serialize());
+		});
+
+		jo.put("product_collections", ja);
+
+		return jo;
 	}
 }

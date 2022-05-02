@@ -145,7 +145,7 @@ public class ModifySeller extends JDialog implements ActionListener{
 				userTextField.setText(u.getUserInfo().getUsername());
 				dniTextField.setText(u.getUserInfo().getDNI());//bloquearlo
 				dniTextField.setEditable(false);
-				telTextField.setText(String.valueOf(u.getUserInfo().getTel()));
+				telTextField.setText(String.valueOf(u.getUserInfo().getTelephone()));
 				dirTextField.setText(u.getUserInfo().getDir());
 				GUIDTextField.setText(u.getUserInfo().getUserID().toString());
 				GUIDTextField.setEditable(false);
@@ -226,7 +226,7 @@ public class ModifySeller extends JDialog implements ActionListener{
 						telTextField.setText(String.valueOf(o.getInt("tel")));
 						salir = true;
 					}
-					else u.getUserInfo().setTel(aux);
+					else u.getUserInfo().setTelephone(aux);
 					
 				}
 				if (!o.get("email").equals(emailTextField.getText())) {//Si se modifico el email
@@ -243,7 +243,7 @@ public class ModifySeller extends JDialog implements ActionListener{
 						dirTextField.setText(o.getString("direction"));
 						salir = true;
 					}
-					else u.getUserInfo().setDir(dirTextField.getText());
+					else u.getUserInfo().setAddress(dirTextField.getText());
 				
 				}
 				if (!o.getString("password").equals(passTextField.getText())) {
